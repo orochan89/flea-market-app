@@ -34,6 +34,7 @@
             <div class="register-form-input__button">
                 <button class="register-form-input__button--submit" type="submit">登録する</button>
                 <a class="register-form-input--register" href="/login">ログインはこちら</a>
+            </div>
         </form>
     </div>
 @endsection

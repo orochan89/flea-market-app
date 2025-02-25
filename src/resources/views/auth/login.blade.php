@@ -23,8 +23,10 @@
                 <label for="password">パスワード</label>
                 <input type="password" id="password">
             </div>
-            <button class="login-form-input__button--submit" type="submit">登録する</button>
-            <a class="login-form-input--register" href="/login">会員登録はこちら</a>
+            <div class="login-form-input__button">
+                <button class="login-form-input__button--submit" type="submit">登録する</button>
+                <a class="login-form-input--register" href="/login">会員登録はこちら</a>
+            </div>
         </form>
     </div>
 @endsection
