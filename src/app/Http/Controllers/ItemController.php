@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('index');
+        $items = Item::all();
+        $tab = $request->query('tab');
+        return view('index', compact('items', 'tab'));
     }
 }

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,8 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-Route::get('/login', [AuthenticatedSessionController::class, 'index']);
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/sell', [ItemController::class, 'store'])->name('sell');
+    Route::get('/mypage', [ProfileController::class, 'profile'])->name('profile');
+    Route::post('/mypage/profile', [ProfileController::class, 'changeProfile'])->name('changeProfile');
+});

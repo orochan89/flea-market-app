@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Item;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +16,10 @@ class ItemTableSeeder extends Seeder
      */
     public function run()
     {
+        $user = User::inRandomOrder()->first();
+
         $param = [
+            'user_id' => $user->id,
             'name' => '腕時計',
             'condition' => '良好',
             'detail' => 'スタイリッシュなデザインのメンズ腕時計',
@@ -23,6 +28,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => 'HDD',
             'condition' => '目立った傷や汚れなし',
             'detail' => '高速で信頼性の高いハードディスク',
@@ -31,6 +37,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => '玉ねぎ3束',
             'condition' => 'やや傷や汚れあり',
             'detail' => '新鮮な玉ねぎ3束のセット',
@@ -39,6 +46,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => '革靴',
             'condition' => '状態が悪い',
             'detail' => 'クラシックなデザインの革靴',
@@ -47,6 +55,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => 'ノートPC',
             'condition' => '良好',
             'detail' => '高性能なノートパソコン',
@@ -55,6 +64,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => 'マイク',
             'condition' => '目立った傷や汚れなし',
             'detail' => '高音質のレコーディング用マイク',
@@ -63,6 +73,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => 'ショルダーバッグ',
             'condition' => 'やや傷や汚れあり',
             'detail' => 'おしゃれなショルダーバッグ',
@@ -71,6 +82,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => 'タンブラー',
             'condition' => '状態が悪い',
             'detail' => '使いやすいタンブラー',
@@ -79,6 +91,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => 'コーヒーミル',
             'condition' => '良好',
             'detail' => '手動のコーヒーミル',
@@ -87,6 +100,7 @@ class ItemTableSeeder extends Seeder
         ];
         DB::table('items')->insert($param);
         $param = [
+            'user_id' => $user->id,
             'name' => 'メイクセット',
             'condition' => '目立った傷や汚れなし',
             'detail' => '便利なメイクアップセット',

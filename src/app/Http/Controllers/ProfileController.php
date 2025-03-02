@@ -6,5 +6,12 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    //
+    public function profile()
+    {
+        return view('profile');
+    }
+
+    public function changeProfile(Request $request){
+        return view('changeProfile')
+    }
 }
