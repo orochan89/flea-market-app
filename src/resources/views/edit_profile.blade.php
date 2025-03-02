@@ -46,16 +46,16 @@
                 <input type="text" id="name">
             </div>
             <div class="change-profile-form-input">
-                <label for="email">メールアドレス</label>
-                <input type="email" id="email">
+                <label for="post-code">郵便番号</label>
+                <input type="text" id="post-code">
             </div>
             <div class="change-profile-form-input">
-                <label for="password">パスワード</label>
-                <input type="password" id="password">
+                <label for="address">住所</label>
+                <input type="text" id="address">
             </div>
             <div class="change-profile-form-input">
-                <label for="confirm-password">確認用パスワード</label>
-                <input type="password" id="confirm-password">
+                <label for="building">建物名</label>
+                <input type="text" id="building">
             </div>
             <div class="change-profile-form-input__button">
                 <button class="change-profile-form-input__button--submit" type="submit">登録する</button>
