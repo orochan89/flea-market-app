@@ -13,4 +13,10 @@ class ItemController extends Controller
         $tab = $request->query('tab');
         return view('index', compact('items', 'tab'));
     }
+
+    public function detail($id)
+    {
+        $items = Item::findOrFail($id);
+        return view('detail', compact('item'));
+    }
 }

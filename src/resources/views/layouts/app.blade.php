@@ -16,7 +16,7 @@
         <div class="header__inner">
             <div class="header-utilities">
                 <a class="header__logo" href="/">
-                    <img src="../../../../Materials/logo.svg" alt="COACHTECH">
+                    <img class="header__logo__image" src="{{ asset('materials/logo.svg') }}" alt="COACHTECH">
                 </a>
                 @yield('nav')
             </div>

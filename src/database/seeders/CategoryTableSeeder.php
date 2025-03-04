@@ -15,61 +15,27 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        $param = [
-            'category' => 'ファッション'
+        $categories = [
+            ['category' => 'ファッション'],
+            ['category' => '家電'],
+            ['category' => 'インテリア'],
+            ['category' => 'レディース'],
+            ['category' => 'メンズ'],
+            ['category' => 'コスメ'],
+            ['category' => '本'],
+            ['category' => 'ゲーム'],
+            ['category' => 'スポーツ'],
+            ['category' => 'キッチン'],
+            ['category' => 'ハンドメイド'],
+            ['category' => 'アクセサリー'],
+            ['category' => 'おもちゃ'],
+            ['category' => 'ベビー・キッズ'],
         ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => '家電'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'インテリア'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'レディース'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'メンズ'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'コスメ'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => '本'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'ゲーム'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'スポーツ'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'キッチン'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'ハンドメイド'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'アクセサリー'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'おもちゃ'
-        ];
-        DB::table('categories')->insert($param);
-        $param = [
-            'category' => 'ベビー・キッズ'
-        ];
-        DB::table('categories')->insert($param);
+
+        foreach ($categories as $category) {
+            DB::table('categories')->insert([
+                'categories' => $category
+            ]);
+        }
     }
 }

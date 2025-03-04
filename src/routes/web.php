@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,11 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', [ItemController::class, 'index']);
+
+Route::post('register', [RegisterController::class, 'store']);
+
+Route::post('login', [AuthenticationController::class, 'store']);
+Route::post('logout', [AuthenticationController::class, 'destroy'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/sell', [ItemController::class, 'store'])->name('sell');

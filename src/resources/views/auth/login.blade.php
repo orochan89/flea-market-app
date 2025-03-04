@@ -10,22 +10,22 @@
 
 @section('content')
     <div class="login__container">
-        <div class="login__container-title">
+        <h1 class="login__container-title">
             ログイン
-        </div>
+        </h1>
         <form class="login-form" action="" method="post">
             @csrf
             <div class="login-form-input">
-                <label for="email">メールアドレス</label>
-                <input type="email" id="email">
+                <label class="login-form-input-label" for="email">メールアドレス</label>
+                <input class="login-form-input-text" type="email" id="email" name="email">
             </div>
             <div class="login-form-input">
-                <label for="password">パスワード</label>
-                <input type="password" id="password">
+                <label class="login-form-input-label" for="password">パスワード</label>
+                <input class="login-form-input-text" type="password" id="password" name="password">
             </div>
             <div class="login-form-input__button">
-                <button class="login-form-input__button--submit" type="submit">登録する</button>
-                <a class="login-form-input--register" href="/login">会員登録はこちら</a>
+                <button class="login-form-input__button--submit" type="submit">ログインする</button>
+                <a class="login-form-input--register" href="{{ route('register') }}">会員登録はこちら</a>
             </div>
         </form>
     </div>

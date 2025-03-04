@@ -1,0 +1,56 @@
+.register__container {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.register__container-title {
+    margin: 10%;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.register-form-input {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form-input-label {
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.register-form-input-text {
+    height: 30px;
+    font-size: 18px;
+    border-radius: 3px;
+    border: 1px solid gray ;
+}
+
+.register-form-input__button {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form-input__button--submit {
+    margin-top: 50px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ff535a;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.register-form-input--login {
+    text-align: center;
+    margin-top: 20px;
+    color: #0073c6;
+    text-decoration: none;
+}
