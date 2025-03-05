@@ -8,6 +8,9 @@
 
 @section('nav')
     @auth
+    <form class="search-form" action="search" method="get">
+        <input class="search-form-input" type="text" placeholder="なにをお探しですか？" name="search">
+    </form>
         <li class="header-nav">
             <form class="header-nav__logout" action="{{ route('logout') }}" method="post">
                 @csrf

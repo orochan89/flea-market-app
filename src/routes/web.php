@@ -26,6 +26,9 @@ Route::post('register', [RegisterController::class, 'store']);
 Route::post('login', [AuthenticationController::class, 'store']);
 Route::post('logout', [AuthenticationController::class, 'destroy'])->name('logout');
 
+Route::get('/search', [ItemController::class, 'search'])->name('search');
+Route::get('/detail', [ItemController::class, 'detail'])->name('detail');
+
 Route::middleware('auth')->group(function () {
     Route::get('/sell', [ItemController::class, 'store'])->name('sell');
     Route::get('/mypage', [ProfileController::class, 'profile'])->name('profile');

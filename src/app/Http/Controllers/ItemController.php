@@ -14,6 +14,14 @@ class ItemController extends Controller
         return view('index', compact('items', 'tab'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('search');
+
+        $results = Item::where('name', 'LIKE', "%{$query}%")->get();
+        return view('search', compact('result', 'query'));
+    }
+
     public function detail($id)
     {
         $items = Item::findOrFail($id);

@@ -5,7 +5,7 @@ body {
 
 .header__inner {
     background-color: black;
-    height: 10%;
+    height: 50px;
 }
 
 .header-utilities {
@@ -16,7 +16,10 @@ body {
 }
 
 .header__logo {
-    padding: 10px;
+    box-sizing: border-box;
+    padding: 5px;
+    height: 100%;
+    width: 33%;
 }
 
 .header__logo__image {
