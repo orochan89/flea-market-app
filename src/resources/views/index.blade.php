@@ -40,29 +40,33 @@
         {{-- 以下 mylistタブ表示 --}}
         @if ($tab === 'mylist')
             <div class="flea-market__tab-content">
-                @foreach ($items as $item)
-                    <div class="item-preview">
-                        <a class="item-link" href="{{ route('detail', $item->id) }}">
-                            <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
-                                alt="商品画像">
-                            <p class="item-name">{{ $item->name }}</p>
-                        </a>
-                    </div>
-                @endforeach
-
-                {{-- 以下 recommendタブ表示 --}}
-            @else
+                <div class="flea-market__flex-box">
+                    @foreach ($items as $item)
+                        <div class="item-preview">
+                            <a class="item-link" href="{{ route('detail', $item->id) }}">
+                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                    alt="商品画像">
+                                <p class="item-name">{{ $item->name }}</p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-            <div class="flea-market__tab-content" id="recommend">
-                @foreach ($items as $item)
-                    <div class="item-preview">
-                        <a href="{{ route('detail', $item->id) }}">
-                            <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
-                                alt="商品画像">
-                            <p class="item-name">{{ $item->name }}</p>
-                        </a>
-                    </div>
-                @endforeach
+
+            {{-- 以下 recommendタブ表示 --}}
+        @else
+            <div class="flea-market__tab-content">
+                <div class="flea-market__flex-box">
+                    @foreach ($items as $item)
+                        <div class="item-preview">
+                            <a class="item-link" href="{{ route('detail', $item->id) }}">
+                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                    alt="商品画像">
+                                <p class="item-name">{{ $item->name }}</p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @endif
     </div>

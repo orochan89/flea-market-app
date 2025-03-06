@@ -30,7 +30,8 @@ Route::get('/search', [ItemController::class, 'search'])->name('search');
 Route::get('/detail', [ItemController::class, 'detail'])->name('detail');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/sell', [ItemController::class, 'store'])->name('sell');
+    Route::get('/sell', [ItemController::class, 'sell'])->name('sell');
+    Route::post('/sell', [ItemController::class, 'store']);
     Route::get('/mypage', [ProfileController::class, 'profile'])->name('profile');
     Route::post('/mypage/profile', [ProfileController::class, 'changeProfile'])->name('changeProfile');
 });

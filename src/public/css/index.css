@@ -79,15 +79,31 @@
 }
 
 .flea-market__tab-content {
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
+width: 90%;
+margin: 5% auto;
+}
 
+.flea-market__flex-box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .item-preview {
-    width: 20%;
-    margin: 20px;
+    width: 22%;
+}
+
+.flea-market__flex-box::before {
+    content: "";
+    display: block;
+    width: 22%;
+    order: 1;
+}
+
+.flea-market__flex-box::after {
+    display: block;
+    content: "";
+    width: 22%;
 }
 
 .item-link {
@@ -96,8 +112,8 @@
 
 .item-image {
     width: 100%;
+    box-sizing: border-box;
     border: 1px solid gray;
-
 }
 
 .item-name {

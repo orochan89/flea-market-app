@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -26,5 +27,11 @@ class ItemController extends Controller
     {
         $items = Item::findOrFail($id);
         return view('detail', compact('item'));
+    }
+
+    public function sell()
+    {
+        $categories = Category::all();
+        return view('sell', compact('categories'));
     }
 }
