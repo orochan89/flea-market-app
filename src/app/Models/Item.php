@@ -11,9 +11,14 @@ class Item extends Model
     use HasFactory;
     protected $fillable = ['name', 'condition', 'brand', 'detail', 'price', 'image'];
 
-    public function categories()
+    public function user()
     {
-        return $this->belongsToMany(Category::class)->withTimestamps();
+        return $this->belongsTo(User::class);
+    }
+
+    public function categoryItem()
+    {
+        return $this->belongsTo(CategoryItem::class);
     }
 
     public function comments()
@@ -24,5 +29,10 @@ class Item extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 }
