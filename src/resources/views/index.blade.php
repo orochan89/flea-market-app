@@ -43,7 +43,7 @@
                 <div class="flea-market__flex-box">
                     @foreach ($items as $item)
                         <div class="item-preview">
-                            <a class="item-link" href="{{ route('detail', $item->id) }}">
+                            <a class="item-link" href="/item/{{ $item->id }}">
                                 <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
                                     alt="商品画像">
                                 <p class="item-name">{{ $item->name }}</p>
@@ -59,7 +59,7 @@
                 <div class="flea-market__flex-box">
                     @foreach ($items as $item)
                         <div class="item-preview">
-                            <a class="item-link" href="{{ route('detail', $item->id) }}">
+                            <a class="item-link" href="/item/{{ $item->id }}">
                                 <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
                                     alt="商品画像">
                                 <p class="item-name">{{ $item->name }}</p>

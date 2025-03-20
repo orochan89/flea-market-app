@@ -37,16 +37,16 @@
         </div>
         <div class="item-detail-area">
             <div class="item-detail-container">
-                <h2 class="item-detail-name">{{}}</h2>
-                <p class="item-detail-brand">{{}}</p>
-                <h3 class="item-detail-price">{{}}</h3>
+                <h2 class="item-detail-name">{{ $item->name }}</h2>
+                <p class="item-detail-brand">{{ $item->brand }}</p>
+                <h3 class="item-detail-price">{{ $item->price }}</h3>
             </div>
             <div>
                 <form class="likes-form" action="">
-                    <button onclick="like({{}})"></button>
+                    {{-- <button onclick="like({{}})"></button> --}}
                 </form>
                 <form class="comment-form" action="">
-                    <button onclick="comment({{}})"></button>
+                    {{-- <button onclick="comment({{}})"></button> --}}
                 </form>
             </div>
             <div class="purchase__button">
@@ -56,26 +56,28 @@
             </div>
             <div class="item-detail">
                 <h3 class="item-detail--title">商品説明</h3>
-                <p class="item-detail--content">{{}}</p>
+                <p class="item-detail--content">{{ $item->detail }}</p>
             </div>
             <div class="item-info">
                 <p class="item-info--category">
                     カテゴリー
-                    @foreach ($collection as $item)
-                        {{}}
+                    @foreach ($item->categories as $category)
+                        <li>
+                            {{ $item->category() }}
+                        </li>
                     @endforeach
                 </p>
                 <p class="item-info--condition">
-                    商品の状態 {{}}
+                    商品の状態 {{ $item->condition }}
                 </p>
             </div>
             <div class="item-comment-container">
                 <div class="item-comment--title">
-                    コメント({{ count }})
+                    コメント({{ $item->getComments()->count() }})
                 </div>
                 <div class="item-comment--content">
                     @foreach ($collection as $item)
-                        <div class="item-comment--user">{{}}</div>
+                        <div class="item-comment--user">{{$item->}}</div>
                         <div class="item-comment--talk">{{}}</div>
                     @endforeach
                     <form class="item-comment-form" action="">

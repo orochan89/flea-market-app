@@ -23,9 +23,8 @@ class ItemController extends Controller
         return view('search', compact('result', 'query'));
     }
 
-    public function detail($id)
+    public function detail(Item $item)
     {
-        $items = Item::findOrFail($id);
         return view('detail', compact('item'));
     }
 
@@ -34,4 +33,6 @@ class ItemController extends Controller
         $categories = Category::all();
         return view('sell', compact('categories'));
     }
+
+    public function store() {}
 }

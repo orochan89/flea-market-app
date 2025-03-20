@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [ItemController::class, 'index']);
+Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
 
 Route::post('register', [RegisterController::class, 'store']);
 
