@@ -10,9 +10,18 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Item::all();
-        $tab = $request->query('tab');
-        return view('index', compact('items', 'tab'));
+        $page = $request->query('page', 'all');
+
+        if ($page === 'mylist') {
+            if (auth()->check()) {
+                $items = auth()->user()->likes()->with('item')->get()->pluck('item');
+            } else {
+                $items = collect();
+            }
+        } else {
+            $items = Item::all();
+        }
+        return view('index', compact('items', 'page'));
     }
 
     public function search(Request $request)

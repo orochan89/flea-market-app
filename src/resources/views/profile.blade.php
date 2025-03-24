@@ -1,75 +1,56 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/') }}">
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
-@extends('nav')
-
-@section('nav')
-    @auth
-    <form class="search-form" action="search" method="get">
-        <input class="search-form-input" type="text" placeholder="なにをお探しですか？" name="search">
-    </form>
-        <li class="header-nav">
-            <form class="header-nav__logout" action="{{ route('logout') }}" method="post">
-                @csrf
-                <button class="header-nav__logout__button" type="submit">ログアウト</button>
-            </form>
-        </li>
-    @endauth
-    @guest
-        <li class="header-nav">
-            <form class="header-nav__login" action="{{ route('login') }}" method="get">
-                @csrf
-                <button class="header-nav__login__button" type="submit">ログイン</button>
-            </form>
-        </li>
-    @endguest
-    <form class="header-nav__mypage" action="{{ route('mypage') }}" method="post">
-        <button class="header-nav__mypage__button" type="submit">マイページ</button>
-    </form>
-    <form class="header-nav__sell" action="{{ route('sell') }}" method="post">
-        <button class="header-nav__sell__button" type="submit">出品</button>
-    </form>
-@endsection
+@include('components.nav')
 
 @section('content')
-    <form class="profile-form" action="" method="">
-        @csrf
-        <div class="profile">
-            <img class="profile-image" src="" alt="user-icon">
-            <h2 class="profile-user-name">{{}}</h2>
-            <input class="profile-user-name" type="hidden" value="{{}}">
-            <button class="profile-edit-button" type="submit">プロフィールを編集</button>
-        </div>
-    </form>
-    <div class="item__container">
-        <div class="item__container-tabs">
-            <a class="tab" href="#recommend">出品した商品</a>
-            <a class="tab" href="#mylist">購入した商品</a>
-        </div>
-    </div>
-    {{-- 以下 recommendタブ表示 --}}
-    <div class="item__tab-content" id="recommend">
-        @foreach ($collection as $item)
-            <div>
-                <img class="item-image" src="{{}}" alt="商品画像">
-                <label class="item-label" for="{{}}">
-                    {{}}
-                </label>
+    <div class="profile__container">
+        <form class="profile-form" action="{{ route('changeProfile') }}" method="get">
+            @csrf
+            <div class="profile">
+                <img class="profile-image" src="" alt="user-icon">
+                <h2 class="profile-user-name">{{ $user->name }}</h2>
+                <input class="profile-user-name" type="hidden" value="{{ $user->name }}" name="name" readonly>
+                <button class="profile-edit-button" type="submit">プロフィールを編集</button>
             </div>
-        @endforeach
-    </div>
-    {{-- 以下 mylistタブ表示 --}}
-    <div class="item__tab-content" id="mylist">
-        @foreach ($collection as $item)
-            <div>
-                <img class="item-image" src="{{}}" alt="商品画像">
-                <label class="item-label" for="{{}}">
-                    {{}}
-                </label>
+        </form>
+        <div class="item__container">
+            <div class="item__container-tabs">
+                <a class="tab" href="/mypage/{{ request()->fullUrlWithQuery(['page' => 'sell']) }}">出品した商品</a>
+                <a class="tab" href="/mypage/{{ request()->fullUrlWithQuery(['page' => 'buy']) }}">購入した商品</a>
             </div>
-        @endforeach
+        </div>
+        @if ($page === 'buy')
+            <div class="flea-market__tab-content">
+                <div class="flea-market__flex-box">
+                    @foreach ($items as $item)
+                        <div class="item-preview">
+                            <a class="item-link" href="/item/{{ $item->id }}">
+                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                    alt="商品画像">
+                                <p class="item-name">{{ $item->name }}</p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @elseif ($page === 'sell')
+            <div class="flea-market__tab-content">
+                <div class="flea-market__flex-box">
+                    @foreach ($items as $item)
+                        <div class="item-preview">
+                            <a class="item-link" href="/item/{{ $item->id }}">
+                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                    alt="商品画像">
+                                <p class="item-name">{{ $item->name }}</p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

@@ -5,8 +5,7 @@
 @endsection
 
 
-@section('nav')
-@endsection
+@include('components.nav')
 
 @section('content')
     <div class="register__container">

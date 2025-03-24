@@ -4,31 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
 @endsection
 
-
-@section('nav')
-    @auth
-        <li class="header-nav">
-            <form class="header-nav__logout" action="{{ route('logout') }}" method="post">
-                @csrf
-                <button class="header-nav__logout__button" type="submit">ログアウト</button>
-            </form>
-        </li>
-    @endauth
-    @guest
-        <li class="header-nav">
-            <form class="header-nav__login" action="{{ route('login') }}" method="get">
-                @csrf
-                <button class="header-nav__login__button" type="submit">ログイン</button>
-            </form>
-        </li>
-    @endguest
-    <form class="header-nav__mypage" action="{{ route('mypage') }}" method="post">
-        <button class="header-nav__mypage__button" type="submit">マイページ</button>
-    </form>
-    <form class="header-nav__sell" action="{{ route('sell') }}" method="post">
-        <button class="header-nav__sell__button" type="submit">出品</button>
-    </form>
-@endsection
+@include('components.nav')
 
 @section('content')
     <div class="detail-container">
@@ -63,7 +39,7 @@
                     カテゴリー
                     @foreach ($item->categories as $category)
                         <li>
-                            {{ $item->category() }}
+                            {{ $item->category }}
                         </li>
                     @endforeach
                 </p>
@@ -73,12 +49,15 @@
             </div>
             <div class="item-comment-container">
                 <div class="item-comment--title">
-                    コメント({{ $item->getComments()->count() }})
+                    コメント({{ $item->comment->count() }})
                 </div>
                 <div class="item-comment--content">
-                    @foreach ($collection as $item)
-                        <div class="item-comment--user">{{$item->}}</div>
-                        <div class="item-comment--talk">{{}}</div>
+                    @foreach ($item->comments as $comment)
+                        <div class="item-comment--user">{{ $comment->user->name }}
+                        </div>
+                        <div class="item-comment--talk">
+                            {{ $comment->comment }}
+                        </div>
                     @endforeach
                     <form class="item-comment-form" action="">
                         @csrf
