@@ -74,8 +74,7 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ・ MySQL 8.0.26  
 
 ## ER図
-![ER drawio](https://github.com/user-attachments/assets/37edc1b4-c77c-4465-b00c-7b0be1263e7f)
-
+![ER drawio](https://github.com/user-attachments/assets/e0f9fed5-4a94-439f-9d15-cbd2e278338d)
 
 
 ## URL
