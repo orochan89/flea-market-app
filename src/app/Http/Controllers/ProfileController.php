@@ -24,13 +24,16 @@ class ProfileController extends Controller
 
     public function changeProfile()
     {
-        $user = User::with('profile');
-        return view('edit_profile', compact('user'));
+        $user = auth()->user();
+        $profile = $user->profile;
+        return view('edit_profile', compact('user', 'profile'));
     }
+
 
     public function update(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
+        $profile = $user->profile;
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('profile_images', 'public');
@@ -38,24 +41,16 @@ class ProfileController extends Controller
             $imagePath = $user->profile->image ?? null;
         }
 
-        if ($user->profile) {
-            $user->profile->update([
-                'name' => $request->name,
-                'postcode' => $request->postcode,
-                'address' => $request->address,
-                'building' => $request->building,
-                'image' => $imagePath,
-            ]);
-        } else {
-            Profile::create([
-                'user_id' => $user->id,
-                'name' => $request->name,
-                'postcode' => $request->postcode,
-                'address' => $request->address,
-                'building' => $request->building,
-                'image' => $imagePath,
-            ]);
-        }
-        return redirect()->route('profile');
+        $user->update([
+            'name' => $request->name
+        ]);
+
+        $profile->update([
+            'postcode' => $request->postcode,
+            'address' => $request->address,
+            'building' => $request->building,
+        ]);
+
+        return redirect()->route('mypage');
     }
 }

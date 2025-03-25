@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -43,5 +44,25 @@ class ItemController extends Controller
         return view('sell', compact('categories'));
     }
 
-    public function store() {}
+    public function store(Request $request)
+    {
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('items', 'public');
+        }
+
+        $item = Item::create([
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'condition' => $request->condition,
+            'brand' => $request->brand,
+            'detail' => $request->detail,
+            'price' => $request->price,
+            'image' => $imagePath,
+        ]);
+
+        $item->categories()->attach($request->categories);
+
+        return redirect()->route('mypage');
+    }
 }

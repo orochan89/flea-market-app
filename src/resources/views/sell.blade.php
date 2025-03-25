@@ -16,7 +16,7 @@
             <h3 class="sell-form-image-title">商品画像</h3>
             <div class="sell-form-image">
                 <label class="sell-form-image-label" for="image">画像を選択する</label>
-                <input class="sell-form-image-input" type="file" id="image" hidden>
+                <input class="sell-form-image-input" type="file" id="image" name="image">
             </div>
             <div class="item-detail">
                 <h3 class="item-detail-title">商品の詳細</h3>
@@ -46,8 +46,7 @@
             <div class="item-description__wrap">
                 <label class="item-description-label" for="item-name">商品名</label>
                 <input class="item-description-input" type="text" id="item-name" name="name"
-                    value="
-                {{ old('name') }}">
+                    value="{{ old('name') }}">
             </div>
             <div class="item-description__wrap">
                 <label class="item-description-label" for="item-name">ブランド名</label>
