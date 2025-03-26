@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Item extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'condition', 'brand', 'detail', 'price', 'image'];
+    protected $fillable = ['user_id', 'name', 'condition', 'brand', 'detail', 'price', 'image'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function categoryItem()
+    public function categories()
     {
-        return $this->belongsTo(CategoryItem::class);
+        return $this->belongsToMany(Category::class, 'category_item')->using(CategoryItem::class);
     }
 
     public function comments()

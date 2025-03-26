@@ -12,11 +12,14 @@
         <h1 class="change-profile__container-title">
             プロフィール設定
         </h1>
-        <form class="change-profile-form" action="" method="post">
+        <form class="change-profile-form" action="" method="post" enctype="multipart/form-data">
             @csrf
             <div class="change-profile-image">
-                <img class="profile-icon" src="" alt="profile-icon">
-                <button class="profile-icon-edit" type="submit">画像を選択する</button>
+                <img class="profile-icon"
+                    src="{{ $profile->image ? asset('storage/' . $profile->image) : asset('images/default-profile.png') }}"
+                    alt="profile-icon">
+                <label class="change-profile-form-image-label" for="image">画像を選択する</label>
+                <input class="change-profile-form-image-input" type="file" id="image" name="image" hidden>
             </div>
             <div class="change-profile-form-input">
                 <label class="change-profile-form-input-label" for="name">ユーザー名</label>

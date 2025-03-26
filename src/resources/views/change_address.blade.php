@@ -36,7 +36,7 @@
         <div class="change-address--title">
             住所の変更
         </div>
-        <form class="change-address-form" action="" method="post">
+        <form class="change-address-form" action="" method="post" enctype="multipart/form-data">
             <div class="change-address">
                 <label class="form-title" for="post-code">郵便番号</label>
                 <input type="text" name="post-code" id="post-code">

@@ -13,6 +13,6 @@ class Category extends Model
 
     public function items()
     {
-        return $this->hasMany(CategoryItem::class);
+        return $this->belongsToMany(Item::class, 'category_item')->using(CategoryItem::class);
     }
 }

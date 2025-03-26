@@ -11,12 +11,12 @@
         <h1 class="sell__container-title">
             商品の出品
         </h1>
-        <form class="sell-form" action="" method="post">
+        <form class="sell-form" action="" method="post" enctype="multipart/form-data">
             @csrf
             <h3 class="sell-form-image-title">商品画像</h3>
             <div class="sell-form-image">
                 <label class="sell-form-image-label" for="image">画像を選択する</label>
-                <input class="sell-form-image-input" type="file" id="image" name="image">
+                <input class="sell-form-image-input" type="file" id="image" name="image" value="" hidden>
             </div>
             <div class="item-detail">
                 <h3 class="item-detail-title">商品の詳細</h3>

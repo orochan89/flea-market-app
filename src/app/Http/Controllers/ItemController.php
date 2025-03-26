@@ -46,10 +46,7 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('items', 'public');
-        }
+        $imagePath = $request->file('image')->store('items', 'public');
 
         $item = Item::create([
             'user_id' => Auth::id(),
@@ -61,7 +58,7 @@ class ItemController extends Controller
             'image' => $imagePath,
         ]);
 
-        $item->categories()->attach($request->categories);
+        $item->categories()->attach($request->category_ids);
 
         return redirect()->route('mypage');
     }

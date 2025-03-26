@@ -13,9 +13,10 @@
 }
 
 .profile-image {
-    width: 33%;
-    height: 100%;
-    margin: auto 0 auto 30px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .profile-user-name {

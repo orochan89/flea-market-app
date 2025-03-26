@@ -11,7 +11,9 @@
         <form class="profile-form" action="{{ route('changeProfile') }}" method="get">
             @csrf
             <div class="profile">
-                <img class="profile-image" src="" alt="user-icon">
+                <img class="profile-image"
+                    src="{{ $profile->image ? asset('storage/' . $profile->image) : asset('images/default-profile.png') }}"
+                    alt="user-icon">
                 <h2 class="profile-user-name">{{ $user->name }}</h2>
                 <input class="profile-user-name" type="hidden" value="{{ $user->name }}" name="name" readonly>
                 <button class="profile-edit-button" type="submit">プロフィールを編集</button>

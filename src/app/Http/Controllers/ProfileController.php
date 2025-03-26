@@ -12,6 +12,7 @@ class ProfileController extends Controller
     public function viewProfile(Request $request)
     {
         $user = Auth::user();
+        $profile = $user->profile;
 
         $page = $request->query('page', 'sell');
         if ($page === 'sell') {
@@ -19,7 +20,7 @@ class ProfileController extends Controller
         } elseif ($page === 'buy') {
             $items = auth()->user()->purchases()->with('item')->get()->pluck('item');
         }
-        return view('profile', compact('items', 'page', 'user'));
+        return view('profile', compact('items', 'page', 'user', 'profile'));
     }
 
     public function changeProfile()
@@ -36,7 +37,7 @@ class ProfileController extends Controller
         $profile = $user->profile;
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('profile_images', 'public');
+            $imagePath = $request->file('image')->store('profiles', 'public');
         } else {
             $imagePath = $user->profile->image ?? null;
         }
@@ -49,6 +50,7 @@ class ProfileController extends Controller
             'postcode' => $request->postcode,
             'address' => $request->address,
             'building' => $request->building,
+            'image' => $imagePath
         ]);
 
         return redirect()->route('mypage');
