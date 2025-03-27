@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Item;
 use App\Models\Profile;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [ItemController::class, 'index'])->name('home');
-Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('detail');
+Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
 
 Route::post('register', [RegisterController::class, 'store']);
 
@@ -35,7 +36,12 @@ Route::get('/detail', [ItemController::class, 'detail'])->name('detail');
 Route::middleware('auth')->group(function () {
     Route::get('/sell', [ItemController::class, 'sell'])->name('sell');
     Route::post('/sell', [ItemController::class, 'store']);
+
     Route::get('/mypage', [ProfileController::class, 'viewProfile'])->name('mypage');
+
     Route::get('/mypage/profile', [ProfileController::class, 'changeProfile'])->name('changeProfile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('update');
+
+    Route::post('/detail/{id}/like', [LikeController::class, 'like'])->name('like');
+    Route::delete('/detail/{id}/unlike', [LikeController::class, 'unlike'])->name('unlike');
 });

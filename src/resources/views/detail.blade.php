@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 @endsection
 
 @include('components.nav')
@@ -9,17 +10,24 @@
 @section('content')
     <div class="detail-container">
         <div class="item-image-area">
-            <img class="item-image" src="" alt="">
+            <img class="item-image" src="{{ asset('storage/' . $item->image) }}" alt="item_image">
         </div>
         <div class="item-detail-area">
             <div class="item-detail-container">
                 <h2 class="item-detail-name">{{ $item->name }}</h2>
                 <p class="item-detail-brand">{{ $item->brand }}</p>
-                <h3 class="item-detail-price">{{ $item->price }}</h3>
+                <h3 class="item-detail-price">{{ number_format($item->price) }}</h3>
             </div>
             <div>
                 <form class="likes-form" action="">
-                    {{-- <button onclick="like({{}})"></button> --}}
+                    @csrf
+                    {{-- <button type="submit" class="like-btn" style="font-size: 24px; background: none; border: none;">
+                        @if ($userLike)
+                            <i class="fas fa-heart" style="color: red;"></i> いいねを取り消す
+                        @else
+                            <i class="far fa-heart" style="color: red;"></i> いいね
+                        @endif
+                    </button> --}}
                 </form>
                 <form class="comment-form" action="">
                     {{-- <button onclick="comment({{}})"></button> --}}
@@ -37,9 +45,9 @@
             <div class="item-info">
                 <p class="item-info--category">
                     カテゴリー
-                    @foreach ($item->categories as $category)
+                    @foreach ($categories as $category)
                         <li>
-                            {{ $item->category }}
+                            {{ $category->category }}
                         </li>
                     @endforeach
                 </p>
@@ -49,7 +57,7 @@
             </div>
             <div class="item-comment-container">
                 <div class="item-comment--title">
-                    コメント({{ $item->comment->count() }})
+                    コメント({{ optional($item->comments)->count() ?? 0 }})
                 </div>
                 <div class="item-comment--content">
                     @foreach ($item->comments as $comment)

@@ -35,7 +35,16 @@ class ItemController extends Controller
 
     public function detail(Item $item)
     {
-        return view('detail', compact('item'));
+        $categories = $item->categories()->get();
+        $comments = $item->comments()->get();
+        $likes = $item->likes()->get();
+
+        $user = auth()->user();
+        $userLike = null;
+        if ($user) {
+            $userLike = $item->likes()->where('user_id', $user->id)->first();
+        }
+        return view('detail', compact('item', 'categories', 'comments', 'likes', 'userLike'));
     }
 
     public function sell()

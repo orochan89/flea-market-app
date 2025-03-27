@@ -1,0 +1,58 @@
+.detail-container {
+
+    margin: 10% auto;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.item-image-area {
+    width: 40%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: 5%;
+}
+
+.item-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.item-detail-area {
+    width: 40%;
+    height: 100%;
+    margin-right: auto;
+    margin-left: 5%;
+}
+
+.item-detail-name {
+    margin: 0 auto;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.item-detail-brand {
+    margin: 5px auto;
+    font-size: 20px;
+}
+
+.item-detail-price {
+    margin: 10px auto;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.item-detail-price::before {
+    content: "¥";
+    font-size: 18px;
+}
+
+.item-detail-price::after {
+    content: "(税込)";
+    font-size: 18px;
+}
+
+
+
