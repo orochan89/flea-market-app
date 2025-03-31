@@ -11,8 +11,8 @@ class ProfileController extends Controller
 {
     public function viewProfile(Request $request)
     {
-        $user = Auth::user();
-        $profile = $user->profile;
+        $user = auth()->user();
+        $profile = Profile::firstOrCreate(['user_id' => Auth::id()], ['postcode' => '', 'address' => '', 'building' => '', 'image' => '']);
 
         $page = $request->query('page', 'sell');
         if ($page === 'sell') {
@@ -25,9 +25,10 @@ class ProfileController extends Controller
 
     public function changeProfile()
     {
-        $user = auth()->user();
-        $profile = $user->profile;
-        return view('edit_profile', compact('user', 'profile'));
+        $user = $userName = Auth::user();
+
+        $profile = Profile::firstOrCreate(['user_id' => Auth::id()], ['postcode' => '', 'address' => '', 'building' => '', 'image' => '']);
+        return view('edit_profile', compact('profile', 'user'));
     }
 
 

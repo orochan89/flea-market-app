@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
@@ -21,6 +22,7 @@ class LikeController extends Controller
                     'user_id' => $user_id,
                 ]);
             }
+            return redirect()->back();
         }
     }
 }
