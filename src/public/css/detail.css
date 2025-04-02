@@ -54,5 +54,151 @@
     font-size: 18px;
 }
 
+.reaction-container {
+    display: flex;
+    align-items: center;
+}
+
+.reaction-likes-wrap {
+    width: 20%;
+    text-align: center;
+}
+
+.reaction-comment-wrap {
+    width: 20%;
+    text-align: center;
+}
+
+.reaction-count {
+    width: 20%;
+    height: 100%;
+    margin: auto;
+    font-size: 18px;
+}
+
+.reaction-comment {
+    height: 100%;
+    width: 20%;
+}
+
+.purchase-form__button--submit {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #ff535a;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.item-detail--title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item-detail--content {
+    font-size: 18px;
+}
+
+.item-info--title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item-comment--title {
+    color: gray;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item-comment--user {
+    display: flex;
+    justify-content: start;
+    height: 40px;
+}
+
+.item-comment--user-image {
+    width: auto;
+    height: auto;
+}
+
+.item-comment--user-name {
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.item-comment--talk {
+    height: auto;
+    margin: 5px;
+    padding: 10px;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    color: black;
+    font-size: 12px;
+}
+
+.item-comment-form--title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.item-comment-form--content {
+    height: 100px;
+    width: 100%;
+    font-size: 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+}
+
+.item-comment-form__button {
+    width: 100%;
+    margin: 20px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #ff535a;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.item-info--category {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin: 5px auto;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.category_margin {
+    margin: auto 10px;
+    padding: 4px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: normal;
+    background-color: #e5e5e5;
+}
+
+.item-info--condition {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px auto;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+.condition_margin {
+    margin: auto 20px;
+    padding: 3px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
 
 

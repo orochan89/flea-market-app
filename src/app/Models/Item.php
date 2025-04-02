@@ -11,6 +11,19 @@ class Item extends Model
     use HasFactory;
     protected $fillable = ['user_id', 'name', 'condition', 'brand', 'detail', 'price', 'image'];
 
+
+    public function getConditionLabelAttribute()
+    {
+        $labels = [
+            'good' => '良好',
+            'better' => '良い',
+            'worth' => '悪い',
+            'worst' => '最悪'
+        ];
+
+        return $labels[$this->condition] ?? '不明';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -18,7 +31,7 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_items', 'item_id', 'category_id')->using(CategoryItem::class);
+        return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id')->using(CategoryItem::class);
     }
 
     public function comments()

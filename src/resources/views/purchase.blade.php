@@ -4,49 +4,23 @@
     <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
 @endsection
 
-@section('nav')
-    @auth
-    <form class="search-form" action="search" method="get">
-        <input class="search-form-input" type="text" placeholder="なにをお探しですか？" name="search">
-    </form>
-        <li class="header-nav">
-            <form class="header-nav__logout" action="{{ route('logout') }}" method="post">
-                @csrf
-                <button class="header-nav__logout__button" type="submit">ログアウト</button>
-            </form>
-        </li>
-    @endauth
-    @guest
-        <li class="header-nav">
-            <form class="header-nav__login" action="{{ route('login') }}" method="get">
-                @csrf
-                <button class="header-nav__login__button" type="submit">ログイン</button>
-            </form>
-        </li>
-    @endguest
-    <form class="header-nav__mypage" action="{{ route('mypage') }}" method="post">
-        <button class="header-nav__mypage__button" type="submit">マイページ</button>
-    </form>
-    <form class="header-nav__sell" action="{{ route('sell') }}" method="post">
-        <button class="header-nav__sell__button" type="submit">出品</button>
-    </form>
-@endsection
+@include('components.nav')
 
 @section('content')
     <div class="purchase-container">
         <div class="item-container">
             <div class="item-detail">
-                <img class="item-image" src="" alt="">
-                <h2 class="item-name">{{}}</h2>
-                <h3 class="item-price">{{}}</h3>
+                <img class="item-image" src="{{ asset('storage/' . $item->image) }}" alt="item_image">
+                <h2 class="item-name">{{ $item->name }}</h2>
+                <h3 class="item-price">{{ number_format($item->price) }}</h3>
             </div>
             <div class="item-payment">
                 <h3 class="item-payment--title">支払い方法</h3>
                 <select class="item-payment--select" name="payment" id="payment">
                     <option class="item-payment--option" value="">選択してください</option>
-                    @foreach ($collection as $item)
-                        <option class="item-payment--option" value="{{}}">コンビニ払い</option>
-                        <option class="item-payment--option" value="{{}}">カード払い</option>
+                    @foreach ($payments as $payment)
+                        <option class="item-payment--option" value="1">コンビニ払い</option>
+                        <option class="item-payment--option" value="2">カード払い</option>
                     @endforeach
                 </select>
             </div>
@@ -55,21 +29,23 @@
                 <button class="shipping-address--edit">変更する</button>
             </div>
             <div class="shipping-address-content">
-                <input class="postcode-input" type="hidden" name="" readonly>
-                <p class="postcode">{{}}</p>
-                <input class="address-input" type="hidden" name="" readonly>
-                <p class="address">{{}}</p>
+                <input class="postcode-input" type="hidden" name="postcode" readonly>
+                <p class="postcode">{{ $profile->postcode }}</p>
+                <input class="address-input" type="hidden" name="address" readonly>
+                <p class="address">{{ $profile->address }}</p>
+                <input class="building-input" type="hidden" name="building" readonly>
+                <p class="building">{{ $profile->building }}</p>
             </div>
         </div>
         <div class="payment-container">
             <table class="payment-table">
                 <tr class="payment-table--row">
                     <th class="payment-table--th">商品代金</th>
-                    <td class="payment-table--td">{{}}</td>
+                    <td class="payment-table--td">{{ $item->price }}</td>
                 </tr>
                 <tr class="payment-table--row">
                     <th class="payment-table--th">支払い方法</th>
-                    <td class="payment-table--td">{{}}</td>
+                    <td class="payment-table--td">{{ $purchase->payment }}</td>
                 </tr>
             </table>
             <button class="purchase__button">購入する</button>

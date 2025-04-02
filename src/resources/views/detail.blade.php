@@ -21,20 +21,27 @@
             <div>
                 <form class="likes-form" action="{{ route('like.toggle', ['item' => $item->id]) }}" method="post">
                     @csrf
-                    <button type="submit" class="like-btn" style="font-size: 24px; background: none; border: none;">
-                        @if ($userLike)
-                            <i class="fas fa-heart" style="color: red;"></i>
-                        @else
-                            <i class="far fa-heart" style="color: red;"></i>
-                        @endif
-
-                        <div>
-                            {{ $item->likes->count() }}
+                    <div class="reaction-container">
+                        <div class="reaction-likes-wrap">
+                            <button type="submit" class="like-btn"
+                                style="font-size: 24px; background: none; border: none;">
+                                @if ($userLike)
+                                    <i class="fas fa-star" style="color: yellow;"></i>
+                                @else
+                                    <i class="far fa-star" style="color: yellow;"></i>
+                                @endif
+                            </button>
+                            <div class="reaction-count">
+                                {{ $item->likes->count() }}
+                            </div>
                         </div>
-                    </button>
-                </form>
-                <form class="comment-form" action="">
-                    {{-- <button onclick="comment({{}})"></button> --}}
+                        <div class="reaction-comment-wrap">
+                            <i style="font-size: 24px; background: none; border: none;" class="fa-regular fa-comment"></i>
+                            <div class="reaction-count">
+                                {{ $item->comments->count() }}
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="purchase__button">
@@ -47,43 +54,44 @@
                 <p class="item-detail--content">{{ $item->detail }}</p>
             </div>
             <div class="item-info">
-                <p class="item-info--category">
+                <h3 class="item-info--title">商品の状態</h3>
+                <div class="item-info--category">
                     カテゴリー
                     @foreach ($item->categories as $category)
-                        <li>
+                        <div class="category_margin">
                             {{ $category->category }}
-                        </li>
+                        </div>
                     @endforeach
-                </p>
-                <p class="item-info--condition">
-                    商品の状態 {{ $item->condition }}
-                </p>
-            </div>
-            <div class="item-comment-container">
-                <div class="item-comment--title">
-                    コメント({{ optional($item->comments)->count() ?? 0 }})
                 </div>
-                <div class="item-comment--content">
-                    @foreach ($item->comments as $comment)
-                        <div class="item-comment--user">
-                            <img class="item-comment--user-image"
-                                src="{{ asset('storage/' . $comment->user->profile->image) }}" alt="user-icon">
-                            <div class="item-comment--user-name">
-                                {{ $comment->user->name }}
+                <div class="item-info--condition">
+                    商品の状態<div class="condition_margin">{{ $item->condition_label }}</div>
+                </div>
+                <div class="item-comment-container">
+                    <div class="item-comment--title">
+                        コメント({{ optional($item->comments)->count() ?? 0 }})
+                    </div>
+                    <div class="item-comment--content">
+                        @foreach ($item->comments as $comment)
+                            <div class="item-comment--user">
+                                <img class="item-comment--user-image"
+                                    src="{{ asset('storage/' . $comment->user->profile->image) }}" alt="user-icon">
+                                <div class="item-comment--user-name">
+                                    {{ $comment->user->name }}
+                                </div>
                             </div>
-                        </div>
-                        <div class="item-comment--talk">
-                            {{ $comment->comment }}
-                        </div>
-                    @endforeach
-                    <form class="item-comment-form" action="{{ route('comment', ['item' => $item->id]) }}" method="post">
-                        @csrf
-                        <h3 class="item-comment-form--title">商品へのコメント</h3>
-                        <textarea class="item-comment-form--content" name="comment" id="comment" cols="30" rows="50"></textarea>
-                        <button class="item-comment-form__button" type="submit">コメントを送信する</button>
-                    </form>
+                            <div class="item-comment--talk">
+                                {{ $comment->comment }}
+                            </div>
+                        @endforeach
+                        <form class="item-comment-form" action="{{ route('comment', ['item' => $item->id]) }}"
+                            method="post">
+                            @csrf
+                            <h3 class="item-comment-form--title">商品へのコメント</h3>
+                            <textarea class="item-comment-form--content" name="comment" id="comment" cols="30" rows="50"></textarea>
+                            <button class="item-comment-form__button" type="submit">コメントを送信する</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

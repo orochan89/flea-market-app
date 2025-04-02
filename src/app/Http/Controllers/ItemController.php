@@ -35,16 +35,13 @@ class ItemController extends Controller
 
     public function detail(Item $item)
     {
-        $categories = $item->categories()->get();
-        $comments = $item->comments()->get();
-        $likes = $item->likes()->get();
-
+        $item->load(['categories', 'comments', 'likes']);
         $user = auth()->user();
         $userLike = null;
         if ($user) {
             $userLike = $item->likes()->where('user_id', $user->id)->first();
         }
-        return view('detail', compact('item', 'categories', 'comments', 'likes', 'userLike'));
+        return view('detail', compact('item', 'userLike'));
     }
 
     public function sell()
@@ -67,7 +64,10 @@ class ItemController extends Controller
             'image' => $imagePath,
         ]);
 
-        $item->categories()->attach($request->category_ids);
+        if ($request->has('categories')) {
+            $categoryIds = array_map('intval', (array) $request->categories);
+            $item->categories()->attach($categoryIds);
+        }
 
         return redirect()->route('mypage');
     }

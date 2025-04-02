@@ -8,8 +8,10 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Models\Item;
 use App\Models\Profile;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -45,4 +47,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/item/{item}/like', [LikeController::class, 'toggleLike'])->name('like.toggle');
     Route::post('/item/{item}/comment', [CommentController::class, 'store'])->name('comment');
+
+    Route::get('/purchase/{item}', [PurchaseController::class, 'viewPurchase'])->name('viewPurchase');
+    Route::post('/purchase/{item}', [PurchaseController::class, 'Purchase'])->name('purchase');
+
+    Route::get('purchase/address/{item}', [PurchaseController::class, 'viewAddress'])->name('viewAddress');
+    Route::post('purchase/address/{item}', [PurchaseController::class, 'mailingAddress'])->name('mailingAddress');
 });

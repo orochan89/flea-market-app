@@ -24,8 +24,8 @@
             <p class="item-detail-category-title">カテゴリー</p>
             <div class="item-detail-category">
                 @foreach ($categories as $category)
-                    <input type="checkbox" name="categories" id="{{ $category->category }}"
-                        value="{{ $category->category }}" hidden>
+                    <input type="checkbox" name="categories[]" id="{{ $category->category }}" value="{{ $category->id }}"
+                        hidden>
                     <label class="category-label" for="{{ $category->category }}">
                         {{ $category->category }}
                     </label>
