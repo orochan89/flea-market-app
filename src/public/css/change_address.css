@@ -1,0 +1,44 @@
+.change-address__container {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.change-address--title {
+    margin: 10%;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+.change-address {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-title {
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.form-input {
+    height: 30px;
+    font-size: 18px;
+    border-radius: 3px;
+    border: 1px solid gray ;
+}
+
+.change-address-form-input__button--submit {
+    width: 100%;
+    margin-top: 50px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ff535a;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+}

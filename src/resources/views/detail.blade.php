@@ -45,7 +45,7 @@
                 </form>
             </div>
             <div class="purchase__button">
-                <form class="purchase-form" action="">
+                <form class="purchase-form" action="{{ route('viewPurchase', ['item' => $item->id]) }}" method="get">
                     <button class="purchase-form__button--submit" type="submit">購入手続きへ</button>
                 </form>
             </div>

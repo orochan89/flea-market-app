@@ -1,0 +1,143 @@
+.purchase-container {
+    width: 90%;
+    margin: 50px auto;
+    display: flex;
+}
+
+.item-container {
+    width: 60%;
+}
+
+.item-detail {
+    display: flex;
+    padding-bottom: 40px;
+    border-bottom: solid 1px gray;
+}
+
+.item-image {
+    width: 200px;
+    height: cover;
+}
+
+.item-detail-text {
+    margin: 0 20px;
+}
+
+.item-name {
+    margin: 0 10px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.item-price {
+    margin: 20px 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item-price::before {
+    content: "¥";
+    font-size: 24px;
+    margin: 0 5px;
+}
+
+.item-payment {
+    padding-bottom: 40px;
+    border-bottom: solid 1px gray;
+}
+
+.item-payment--title {
+    margin: 24px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item-payment--select {
+    width: 40%;
+    height: 30px;
+    margin: 10px 30px;
+    font-size: 18px;
+}
+
+.item-payment--option {
+    background-color: #636769;
+    color: white;
+}
+
+.mailing-address {
+    margin: auto 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mailing-address--title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.mailing-address--edit {
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.mailing-address-content {
+    padding-bottom: 40px;
+    border-bottom: solid 1px gray;
+}
+
+.postcode {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 24px;
+}
+
+.address {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 24px;
+}
+
+.building {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 24px;
+}
+
+.payment-container {
+    margin: 0 auto;
+    width: 30%;
+    height: 30%;
+}
+
+.payment-table {
+    width: 100%;
+}
+
+.payment-table--row {
+    margin: auto;
+    border: solid 1px gray;
+}
+
+.payment-table--th {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.payment-table--td {
+    padding: 20px;
+    font-size: 18px;
+}
+
+.purchase__button {
+    width: 100%;
+    margin-top: 30px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #ff535a;
+    font-size: 18px;
+    font-weight: bold;
+}
