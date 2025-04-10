@@ -16,12 +16,20 @@
             @csrf
             <div class="login-form-input">
                 <label class="login-form-input-label" for="email">メールアドレス</label>
-                <input class="login-form-input-text" type="email" id="email" name="email">
+                <input class="login-form-input-text" type="email" id="email" name="email"
+                    value="{{ old('email') }}">
             </div>
+            @error('email')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="login-form-input">
                 <label class="login-form-input-label" for="password">パスワード</label>
-                <input class="login-form-input-text" type="password" id="password" name="password">
+                <input class="login-form-input-text" type="password" id="password" name="password"
+                    value="{{ old('password') }}">
             </div>
+            @error('password')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="login-form-input__button">
                 <button class="login-form-input__button--submit" type="submit">ログインする</button>
                 <a class="login-form-input--register" href="{{ route('register') }}">会員登録はこちら</a>

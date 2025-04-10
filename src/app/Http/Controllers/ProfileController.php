@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class ProfileController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         $user = auth()->user();
         $profile = $user->profile;
@@ -44,7 +45,7 @@ class ProfileController extends Controller
         }
 
         $user->update([
-            'name' => $request->name
+            'name' => $request->name ?: auth()->user()->name,
         ]);
 
         $profile->update([

@@ -7,52 +7,55 @@
 @include('components.nav')
 
 @section('content')
-    <div class="purchase-container">
-        <div class="item-container">
-            <div class="item-detail">
-                <img class="item-image" src="{{ asset('storage/' . $item->image) }}" alt="item_image">
-                <div class="item-detail-text">
-                    <h2 class="item-name">{{ $item->name }}</h2>
-                    <h3 class="item-price">{{ number_format($item->price) }}</h3>
+    <form action="" method="post">
+        @csrf
+        <div class="purchase-container">
+            <div class="item-container">
+                <div class="item-detail">
+                    <img class="item-image" src="{{ asset('storage/' . $item->image) }}" alt="item_image">
+                    <div class="item-detail-text">
+                        <h2 class="item-name">{{ $item->name }}</h2>
+                        <h3 class="item-price">{{ number_format($item->price) }}</h3>
+                    </div>
+                </div>
+                <div class="item-payment">
+                    <h3 class="item-payment--title">支払い方法</h3>
+                    <select class="item-payment--select" name="payment" id="payment">
+                        <option class="item-payment--option" value="">選択してください</option>
+                        <option class="item-payment--option" value="1">コンビニ払い</option>
+                        <option class="item-payment--option" value="2">カード払い</option>
+                    </select>
+                </div>
+                <div class="mailing-address">
+                    <h3 class="mailing-address--title">配送先</h3>
+                    <a class="mailing-address--edit" href="{{ route('viewAddress', ['item' => $item->id]) }}">変更する</a>
+                </div>
+                <div class="mailing-address-content">
+                    <input class="postcode-input" type="hidden" name="postcode" readonly>
+                    <p class="postcode">〒{{ substr($postcode, 0, 3) }}-{{ substr($postcode, 3, 4) }}</p>
+                    <input class="address-input" type="hidden" name="address" readonly>
+                    <p class="address">{{ $address }}</p>
+                    <input class="building-input" type="hidden" name="building" readonly>
+                    <p class="building">{{ $building }}</p>
                 </div>
             </div>
-            <div class="item-payment">
-                <h3 class="item-payment--title">支払い方法</h3>
-                <select class="item-payment--select" name="payment" id="payment">
-                    <option class="item-payment--option" value="">選択してください</option>
-                    <option class="item-payment--option" value="1">コンビニ払い</option>
-                    <option class="item-payment--option" value="2">カード払い</option>
-                </select>
-            </div>
-            <div class="mailing-address">
-                <h3 class="mailing-address--title">配送先</h3>
-                <a class="mailing-address--edit" href="{{ route('viewAddress', ['item' => $item->id]) }}">変更する</a>
-            </div>
-            <div class="mailing-address-content">
-                <input class="postcode-input" type="hidden" name="postcode" readonly>
-                <p class="postcode">{{ $postcode }}</p>
-                <input class="address-input" type="hidden" name="address" readonly>
-                <p class="address">{{ $address }}</p>
-                <input class="building-input" type="hidden" name="building" readonly>
-                <p class="building">{{ $building }}</p>
+            <div class="payment-container">
+                <table class="payment-table">
+                    <tr class="payment-table--row">
+                        <th class="payment-table--th">商品代金</th>
+                        <td class="payment-table--td">¥ {{ number_format($item->price) }}</td>
+                    </tr>
+                    <tr class="payment-table--row">
+                        <th class="payment-table--th">支払い方法</th>
+                        <td class="payment-table--td">
+                            @if (!empty($purchase->payment))
+                                {{ $purchase->payment }}
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <button class="purchase__button" type="submit">購入する</button>
             </div>
         </div>
-        <div class="payment-container">
-            <table class="payment-table">
-                <tr class="payment-table--row">
-                    <th class="payment-table--th">商品代金</th>
-                    <td class="payment-table--td">{{ number_format($item->price) }}</td>
-                </tr>
-                <tr class="payment-table--row">
-                    <th class="payment-table--th">支払い方法</th>
-                    <td class="payment-table--td">
-                        @if (!empty($purchase->payment))
-                            {{ $purchase->payment }}
-                        @endif
-                    </td>
-                </tr>
-            </table>
-            <button class="purchase__button">購入する</button>
-        </div>
-    </div>
+    </form>
 @endsection

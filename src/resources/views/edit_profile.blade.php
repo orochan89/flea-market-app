@@ -28,19 +28,28 @@
             </div>
             <div class="change-profile-form-input">
                 <label class="change-profile-form-input-label" for="post-code">郵便番号</label>
-                <input class="change-profile-form-input-text" type="text" id="post-code" name="postcode"
+                <input class="change-profile-form-input-text" type="number" id="post-code" name="postcode"
                     value="{{ old('postcode', $profile->postcode ?? '') }}">
             </div>
+            @error('postcode')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="change-profile-form-input">
                 <label class="change-profile-form-input-label" for="address">住所</label>
                 <input class="change-profile-form-input-text" type="text" id="address" name="address"
                     value="{{ old('address', $profile->address ?? '') }}">
             </div>
+            @error('address')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="change-profile-form-input">
                 <label class="change-profile-form-input-label" for="building">建物名</label>
                 <input class="change-profile-form-input-text" type="text" id="building" name="building"
                     value="{{ old('building', $profile->building ?? '') }}">
             </div>
+            @error('building')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="change-profile-form-input__button">
                 <button class="change-profile-form-input__button--submit" type="submit">登録する</button>
             </div>

@@ -42,3 +42,7 @@
     color: #ffffff;
     cursor: pointer;
 }
+
+.alert {
+    color: red;
+}

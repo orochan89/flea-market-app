@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Item extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'name', 'condition', 'brand', 'detail', 'price', 'image'];
+    protected $fillable = ['user_id', 'name', 'condition', 'brand', 'detail', 'price', 'image', 'is_sold'];
 
 
     public function getConditionLabelAttribute()

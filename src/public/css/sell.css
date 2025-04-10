@@ -130,3 +130,7 @@ input[type="checkbox"]:checked + .category-label {
     border-radius: 3px;
     border: none;
 }
+
+.alert {
+    color: red;
+}

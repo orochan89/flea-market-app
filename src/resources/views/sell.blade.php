@@ -16,8 +16,12 @@
             <h3 class="sell-form-image-title">商品画像</h3>
             <div class="sell-form-image">
                 <label class="sell-form-image-label" for="image">画像を選択する</label>
-                <input class="sell-form-image-input" type="file" id="image" name="image" value="" hidden>
+                <input class="sell-form-image-input" type="file" id="image" name="image"
+                    value="{{ old('image') }}" hidden>
             </div>
+            @error('image')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="item-detail">
                 <h3 class="item-detail-title">商品の詳細</h3>
             </div>
@@ -31,6 +35,9 @@
                     </label>
                 @endforeach
             </div>
+            @error('categories')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="item-condition">
                 <p class="item-condition-title">
                     商品の状態
@@ -42,12 +49,18 @@
                     <option class="item-description-option" value="worst">状態が悪い</option>
                 </select>
             </div>
+            @error('condition')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <h3 class="item-description">商品名と説明</h3>
             <div class="item-description__wrap">
                 <label class="item-description-label" for="item-name">商品名</label>
                 <input class="item-description-input" type="text" id="item-name" name="name"
                     value="{{ old('name') }}">
             </div>
+            @error('image')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="item-description__wrap">
                 <label class="item-description-label" for="item-name">ブランド名</label>
                 <input class="item-description-input" type="text" id="item-name" name="brand"
@@ -57,11 +70,17 @@
                 <label class="item-description-label" for="item-detail">商品の説明</label>
                 <textarea class="item-description-textarea" type="text" id="item-detail" name="detail">{{ old('detail') }}</textarea>
             </div>
+            @error('detail')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="item-description__wrap">
                 <label class="item-description-label" for="item-price">販売価格</label>
                 <input class="item-description-input-price" type="integer" id="item-price" name="price"
                     value="{{ old('price') }}" placeholder="¥">
             </div>
+            @error('price')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <button class="sell-form__button--submit" type="submit">
                 出品する
             </button>
