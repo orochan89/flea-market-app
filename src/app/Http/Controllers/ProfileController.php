@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +18,9 @@ class ProfileController extends Controller
 
         $page = $request->query('page', 'sell');
         if ($page === 'sell') {
-            $items = auth()->user()->items()->get();
+            $items = Item::where('user_id', $user->id)->get();
         } elseif ($page === 'buy') {
-            $items = auth()->user()->purchases()->with('item')->get()->pluck('item');
+            $items = $user->purchases()->with('item')->get()->pluck('item');
         }
         return view('profile', compact('items', 'page', 'user', 'profile'));
     }

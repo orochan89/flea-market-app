@@ -59,7 +59,7 @@
     font-weight: bold;
 }
 
-.tab.selected {
+.tab.active {
     color: red;
 }
 

@@ -21,7 +21,11 @@ class ItemController extends Controller
                 $items = collect();
             }
         } else {
-            $items = Item::all();
+            if (auth()->check()) {
+                $items = Item::whereNotIn('user_id', [auth()->id()])->get();
+            } else {
+                $items = Item::all();
+            }
         }
         return view('index', compact('items', 'page'));
     }

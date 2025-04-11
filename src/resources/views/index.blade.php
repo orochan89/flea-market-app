@@ -9,8 +9,9 @@
 @section('content')
     <div class="flea-market__container">
         <div class="flea-market__container-tabs">
-            <a class="tab" href="{{ url('/') }}">おすすめ</a>
-            <a class="tab" href="{{ request()->fullUrlWithQuery(['page' => 'mylist']) }}">マイリスト</a>
+            <a class="tab {{ request('page') !== 'mylist' ? 'active' : '' }}" href="{{ url('/') }}">おすすめ</a>
+            <a class="tab {{ request('page') === 'mylist' ? 'active' : '' }}"
+                href="{{ request()->fullUrlWithQuery(['page' => 'mylist']) }}">マイリスト</a>
         </div>
         {{-- 以下 mylistタブ表示 --}}
         @if ($page === 'mylist')

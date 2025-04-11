@@ -21,8 +21,14 @@
         </form>
         <div class="item__container">
             <div class="item__container-tabs">
-                <a class="tab" href="/mypage/{{ request()->fullUrlWithQuery(['page' => 'sell']) }}">出品した商品</a>
-                <a class="tab" href="/mypage/{{ request()->fullUrlWithQuery(['page' => 'buy']) }}">購入した商品</a>
+                <a class="tab {{ request('page', 'sell') === 'sell' ? 'active' : '' }}"
+                    href="{{ request()->fullUrlWithQuery(['page' => 'sell']) }}">
+                    出品した商品
+                </a>
+                <a class="tab {{ request('page') === 'buy' ? 'active' : '' }}"
+                    href="{{ request()->fullUrlWithQuery(['page' => 'buy']) }}">
+                    購入した商品
+                </a>
             </div>
         </div>
         @if ($page === 'buy')
