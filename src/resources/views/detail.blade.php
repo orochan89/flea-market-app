@@ -64,7 +64,9 @@
                     @endforeach
                 </div>
                 <div class="item-info--condition">
-                    商品の状態<div class="condition_margin">{{ $item->condition_label }}</div>
+                    商品の状態
+                    <div class="condition_margin">{{ $item->condition_label }}
+                    </div>
                 </div>
                 <div class="item-comment-container">
                     <div class="item-comment--title">

@@ -29,6 +29,10 @@ class PurchaseController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
 
+        if ($item->is_sold) {
+            return redirect()->back()->with('error', 'この商品は既に売り切れています');
+        }
+
         $page = 'buy';
 
         Purchase::create([
@@ -40,7 +44,10 @@ class PurchaseController extends Controller
             'building' => $request->building
         ]);
 
-        return view('profile', compact('item', 'user', 'profile', 'page'));
+        $item->is_sold = true;
+        $item->save();
+
+        return redirect()->route('mypage', ['page' => 'buy']);
     }
 
     public function viewAddress(Request $request, Item $item)

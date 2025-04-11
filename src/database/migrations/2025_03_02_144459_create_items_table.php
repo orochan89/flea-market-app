@@ -16,13 +16,13 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('condition');
+            $table->tinyInteger('condition')->comment('0: 良好, 1: 目立った傷や汚れなし, 2: やや傷や汚れあり, 3: 状態が悪い');
             $table->string('name');
             $table->string('brand')->nullable();
             $table->string('detail');
             $table->integer('price');
             $table->string('image');
-            $table->boolean('is_sold')->default(false);
+            $table->boolean('is_sold')->default(false)->comment('0: 在庫あり, 1: 在庫なし');
             $table->timestamps();
         });
     }

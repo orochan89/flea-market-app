@@ -22,8 +22,8 @@
                     <h3 class="item-payment--title">支払い方法</h3>
                     <select class="item-payment--select" name="payment" id="payment">
                         <option class="item-payment--option" value="">選択してください</option>
-                        <option class="item-payment--option" value="1">コンビニ払い</option>
-                        <option class="item-payment--option" value="2">カード払い</option>
+                        <option class="item-payment--option" value="0">コンビニ払い</option>
+                        <option class="item-payment--option" value="1">カード払い</option>
                     </select>
                 </div>
                 <div class="mailing-address">

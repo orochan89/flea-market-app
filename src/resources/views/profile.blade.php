@@ -21,7 +21,7 @@
         </form>
         <div class="item__container">
             <div class="item__container-tabs">
-                <a class="tab {{ request('page', 'sell') === 'sell' ? 'active' : '' }}"
+                <a class="tab {{ request('page') === 'sell' ? 'active' : '' }}"
                     href="{{ request()->fullUrlWithQuery(['page' => 'sell']) }}">
                     出品した商品
                 </a>
@@ -37,8 +37,13 @@
                     @foreach ($items as $item)
                         <div class="item-preview">
                             <a class="item-link" href="/item/{{ $item->id }}">
-                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
-                                    alt="商品画像">
+                                <div class="item-image-container">
+                                    <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                        alt="商品画像">
+                                    @if ($item->is_sold == 1)
+                                        <div class="sold-label">SOLD</div>
+                                    @endif
+                                </div>
                                 <p class="item-name">{{ $item->name }}</p>
                             </a>
                         </div>
@@ -51,8 +56,13 @@
                     @foreach ($items as $item)
                         <div class="item-preview">
                             <a class="item-link" href="/item/{{ $item->id }}">
-                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
-                                    alt="商品画像">
+                                <div class="item-image-container">
+                                    <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                        alt="商品画像">
+                                    @if ($item->is_sold == 1)
+                                        <div class="sold-label">SOLD</div>
+                                    @endif
+                                </div>
                                 <p class="item-name">{{ $item->name }}</p>
                             </a>
                         </div>

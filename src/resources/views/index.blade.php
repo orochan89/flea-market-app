@@ -20,8 +20,13 @@
                     @foreach ($items as $item)
                         <div class="item-preview">
                             <a class="item-link" href="/item/{{ $item->id }}">
-                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
-                                    alt="商品画像">
+                                <div class="item-image-container">
+                                    <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                        alt="商品画像">
+                                    @if ($item->is_sold)
+                                        <div class="sold-label">SOLD</div>
+                                    @endif
+                                </div>
                                 <p class="item-name">{{ $item->name }}</p>
                             </a>
                         </div>
@@ -36,8 +41,13 @@
                     @foreach ($items as $item)
                         <div class="item-preview">
                             <a class="item-link" href="/item/{{ $item->id }}">
-                                <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
-                                    alt="商品画像">
+                                <div class="item-image-container">
+                                    <img class="item-image" id="item-image" src="{{ asset('storage/' . $item->image) }}"
+                                        alt="商品画像">
+                                    @if ($item->is_sold)
+                                        <div class="sold-label">SOLD</div>
+                                    @endif
+                                </div>
                                 <p class="item-name">{{ $item->name }}</p>
                             </a>
                         </div>

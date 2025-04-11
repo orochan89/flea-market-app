@@ -43,10 +43,14 @@
                     商品の状態
                 </p>
                 <select class="item-description-select" name="condition">
-                    <option class="item-description-option" value="best">良好</option>
-                    <option class="item-description-option" value="better">目立った傷や汚れなし</option>
-                    <option class="item-description-option" value="worse">やや傷や汚れあり</option>
-                    <option class="item-description-option" value="worst">状態が悪い</option>
+                    <option class="item-description-option" value="0" {{ old('condition') == 0 ? 'selected' : '' }}>良好
+                    </option>
+                    <option class="item-description-option" value="1" {{ old('condition') == 1 ? 'selected' : '' }}>
+                        目立った傷や汚れなし</option>
+                    <option class="item-description-option" value="2" {{ old('condition') == 2 ? 'selected' : '' }}>
+                        やや傷や汚れあり</option>
+                    <option class="item-description-option" value="3" {{ old('condition') == 3 ? 'selected' : '' }}>
+                        状態が悪い</option>
                 </select>
             </div>
             @error('condition')
@@ -58,7 +62,7 @@
                 <input class="item-description-input" type="text" id="item-name" name="name"
                     value="{{ old('name') }}">
             </div>
-            @error('image')
+            @error('name')
                 <div class="alert">{{ $message }}</div>
             @enderror
             <div class="item-description__wrap">

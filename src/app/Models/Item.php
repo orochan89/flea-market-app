@@ -11,14 +11,13 @@ class Item extends Model
     use HasFactory;
     protected $fillable = ['user_id', 'name', 'condition', 'brand', 'detail', 'price', 'image', 'is_sold'];
 
-
     public function getConditionLabelAttribute()
     {
         $labels = [
-            'good' => '良好',
-            'better' => '良い',
-            'worth' => '悪い',
-            'worst' => '最悪'
+            0 => '良好',
+            1 => '目立った傷や汚れなし',
+            2 => 'やや傷や汚れあり',
+            3 => '状態が悪い'
         ];
 
         return $labels[$this->condition] ?? '不明';
