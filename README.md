@@ -80,6 +80,8 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 ## ER 図
 
+![ER Diagram]ER.drawio.png
+
 ## URL
 
 ・ 開発環境:http://localhost/  
