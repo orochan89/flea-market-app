@@ -15,6 +15,8 @@
             @csrf
             <h3 class="sell-form-image-title">商品画像</h3>
             <div class="sell-form-image">
+                <img class="image-preview" id="image-preview" src="" alt="プレビュー画像"
+                    style="display: none; margin-top: 10px; max-width: 300px;">
                 <label class="sell-form-image-label" for="image">画像を選択する</label>
                 <input class="sell-form-image-input" type="file" id="image" name="image"
                     value="{{ old('image') }}" hidden>
@@ -91,3 +93,23 @@
         </form>
     </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('image');
+        const preview = document.getElementById('image-preview');
+
+        if (!input || !preview) return;
+
+        input.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>

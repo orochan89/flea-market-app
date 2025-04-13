@@ -32,7 +32,7 @@
                 </div>
                 <div class="mailing-address-content">
                     <input class="postcode-input" type="hidden" name="postcode" readonly>
-                    <p class="postcode">〒{{ substr($postcode, 0, 3) }}-{{ substr($postcode, 3, 4) }}</p>
+                    <p class="postcode">〒{{ $postcode }}</p>
                     <input class="address-input" type="hidden" name="address" readonly>
                     <p class="address">{{ $address }}</p>
                     <input class="building-input" type="hidden" name="building" readonly>
@@ -54,7 +54,12 @@
                         </td>
                     </tr>
                 </table>
-                <button class="purchase__button" type="submit">購入する</button>
+                @if ($item->is_sold)
+                    <button class="sold__button" disabled>SOLD</button>
+                @else
+                    <button class="purchase__button" type="submit">購入
+                        する</button>
+                @endif
             </div>
         </div>
     </form>

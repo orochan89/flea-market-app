@@ -16,7 +16,7 @@
             @csrf
             <div class="change-address">
                 <label class="form-title" for="postcode">郵便番号</label>
-                <input class="form-input" type="number" name="postcode" id="postcode">
+                <input class="form-input" type="text" name="postcode" id="postcode">
             </div>
             @error('postcode')
                 <div class="alert">{{ $message }}</div>

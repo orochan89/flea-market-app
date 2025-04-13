@@ -11,6 +11,21 @@
     text-align: center;
 }
 
+.sell-form-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-preview {
+    display: none;
+    margin-top: 10px;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    object-fit: cover;
+}
 
 .sell-form-image-label {
     padding: 5px 10px;

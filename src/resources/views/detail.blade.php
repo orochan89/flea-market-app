@@ -11,6 +11,9 @@
     <div class="detail-container">
         <div class="item-image-area">
             <img class="item-image" src="{{ asset('storage/' . $item->image) }}" alt="item_image">
+            @if ($item->is_sold)
+                <div class="sold-label">SOLD</div>
+            @endif
         </div>
         <div class="item-detail-area">
             <div class="item-detail-container">
@@ -91,6 +94,9 @@
                             <h3 class="item-comment-form--title">商品へのコメント</h3>
                             <textarea class="item-comment-form--content" name="comment" id="comment" cols="30" rows="50"></textarea>
                             <button class="item-comment-form__button" type="submit">コメントを送信する</button>
+                            @error('comment')
+                                <div class="alert">{{ $message }}</div>
+                            @enderror
                         </form>
                     </div>
                 </div>
