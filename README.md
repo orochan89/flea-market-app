@@ -75,12 +75,12 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 ・ php 7.4.9  
 ・ Laravel 8.\*  
-・ MySQL 8.0.26
+・ MySQL 8.0.26  
 ・ JavaScript
 
 ## ER 図
 
-![ERDiagram]ER.drawio.png
+![ER図](ER.drawio.png)
 
 ## URL
 
