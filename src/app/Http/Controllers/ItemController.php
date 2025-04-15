@@ -40,17 +40,6 @@ class ItemController extends Controller
         return view('index', compact('items', 'tab'));
     }
 
-    public function search(Request $request)
-    {
-        $keyword = $request->input('search');
-
-        $items = Item::with('categories')
-            ->search($keyword)
-            ->get();
-
-        return view('index', ['items' => $items, '' => 'search']);
-    }
-
     public function detail(Item $item)
     {
         $item->load(['categories', 'comments', 'likes']);
