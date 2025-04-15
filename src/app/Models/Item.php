@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -21,6 +22,22 @@ class Item extends Model
         ];
 
         return $labels[$this->condition] ?? '不明';
+    }
+
+    public function scopeSearch(Builder $query, ?string $keyword): Builder
+    {
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                    ->orWhere('brand', 'like', "%{$keyword}%")
+                    ->orWhere('detail', 'like', "%{$keyword}%")
+                    ->orWhereHas('categories', function ($q2) use ($keyword) {
+                        $q2->where('category', 'like', "%{$keyword}%");
+                    });
+            });
+        }
+
+        return $query;
     }
 
     public function user()

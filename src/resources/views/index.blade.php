@@ -4,17 +4,18 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
 
-@include('components.nav')
+@include('components.nav', ['action' => route('home')])
 
 @section('content')
     <div class="flea-market__container">
         <div class="flea-market__container-tabs">
-            <a class="tab {{ request('page') !== 'mylist' ? 'active' : '' }}" href="{{ url('/') }}">おすすめ</a>
-            <a class="tab {{ request('page') === 'mylist' ? 'active' : '' }}"
-                href="{{ request()->fullUrlWithQuery(['page' => 'mylist']) }}">マイリスト</a>
+            <a class="tab {{ request('tab') !== 'mylist' ? 'active' : '' }}"
+                href="{{ url('/?' . http_build_query(['search' => request('search')])) }}">おすすめ</a>
+            <a class="tab {{ request('tab') === 'mylist' ? 'active' : '' }}"
+                href="{{ url('/?' . http_build_query(['tab' => 'mylist', 'search' => request('search')])) }}">マイリスト</a>
         </div>
         {{-- 以下 mylistタブ表示 --}}
-        @if ($page === 'mylist')
+        @if ($tab === 'mylist')
             <div class="flea-market__tab-content">
                 <div class="flea-market__flex-box">
                     @foreach ($items as $item)

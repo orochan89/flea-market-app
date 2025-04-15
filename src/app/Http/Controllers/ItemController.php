@@ -12,30 +12,43 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $page = $request->query('page', 'all');
+        $tab = $request->query('tab', 'all');
+        $keyword = $request->query('search');
 
-        if ($page === 'mylist') {
+        if ($tab === 'mylist') {
             if (auth()->check()) {
                 $items = auth()->user()->likes()->with('item')->get()->pluck('item');
+
+                if ($keyword) {
+                    $items = $items->filter(function ($item) use ($keyword) {
+                        return str_contains(mb_strtolower($item->name), mb_strtolower($keyword));
+                    });
+                }
             } else {
                 $items = collect();
             }
         } else {
+            $query = Item::query();
             if (auth()->check()) {
-                $items = Item::whereNotIn('user_id', [auth()->id()])->get();
-            } else {
-                $items = Item::all();
+                $query->where('user_id', '!=', auth()->id());
             }
+            if ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            }
+            $items = $query->get();
         }
-        return view('index', compact('items', 'page'));
+        return view('index', compact('items', 'tab'));
     }
 
     public function search(Request $request)
     {
-        $query = $request->input('search');
+        $keyword = $request->input('search');
 
-        $results = Item::where('name', 'LIKE', "%{$query}%")->get();
-        return view('search', compact('result', 'query'));
+        $items = Item::with('categories')
+            ->search($keyword)
+            ->get();
+
+        return view('index', ['items' => $items, '' => 'search']);
     }
 
     public function detail(Item $item)
