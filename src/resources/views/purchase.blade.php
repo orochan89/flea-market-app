@@ -18,13 +18,19 @@
                         <h3 class="item-price">{{ number_format($item->price) }}</h3>
                     </div>
                 </div>
+                @php
+                    $payment = old('payment');
+                @endphp
                 <div class="item-payment">
                     <h3 class="item-payment--title">支払い方法</h3>
                     <select class="item-payment--select" name="payment" id="payment">
-                        <option class="item-payment--option" value="">選択してください</option>
-                        <option class="item-payment--option" value="0">コンビニ払い</option>
-                        <option class="item-payment--option" value="1">カード払い</option>
+                        <option value="">選択してください</option>
+                        <option value="0" {{ old('payment') === '0' ? 'selected' : '' }}>コンビニ払い</option>
+                        <option value="1" {{ old('payment') === '1' ? 'selected' : '' }}>カード払い</option>
                     </select>
+                    @error('payment')
+                        <div class="alert">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mailing-address">
                     <h3 class="mailing-address--title">配送先</h3>
@@ -48,9 +54,20 @@
                     <tr class="payment-table--row">
                         <th class="payment-table--th">支払い方法</th>
                         <td class="payment-table--td">
-                            @if (!empty($purchase->payment))
-                                {{ $purchase->payment }}
-                            @endif
+                            <span id="selected-payment-method">
+                                @switch($payment)
+                                    @case('0')
+                                        コンビニ払い
+                                    @break
+
+                                    @case('1')
+                                        カード払い
+                                    @break
+
+                                    @default
+                                        未選択
+                                @endswitch
+                            </span>
                         </td>
                     </tr>
                 </table>
@@ -64,3 +81,21 @@
         </div>
     </form>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentSelect = document.getElementById('payment');
+        const displaySpan = document.getElementById('selected-payment-method');
+
+        const paymentLabels = {
+            '0': 'コンビニ払い',
+            '1': 'カード払い',
+            '': '未選択'
+        };
+
+        paymentSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            displaySpan.textContent = paymentLabels[selectedValue] || '不明な支払い方法';
+        });
+    });
+</script>

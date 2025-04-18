@@ -120,14 +120,14 @@
 }
 
 .payment-table--th {
-    padding: 20px;
-    font-size: 18px;
+    padding: 20px 10px;
+    font-size: 14px;
     font-weight: normal;
 }
 
 .payment-table--td {
-    padding: 20px;
-    font-size: 18px;
+    padding: 20px 10px;
+    font-size: 14px;
 }
 
 .purchase__button {
@@ -152,4 +152,9 @@
     background-color: gray;
     font-size: 18px;
     font-weight: bold;
+}
+
+.alert {
+    color: red;
+    margin: 0 30px;
 }

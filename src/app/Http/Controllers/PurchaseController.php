@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\User;
@@ -24,7 +25,7 @@ class PurchaseController extends Controller
         return view('purchase', compact('item', 'user', 'postcode', 'address', 'building'));
     }
 
-    public function purchase(Request $request, Item $item)
+    public function purchase(PurchaseRequest $request, Item $item)
     {
         $user = auth()->user();
         $profile = $user->profile;
