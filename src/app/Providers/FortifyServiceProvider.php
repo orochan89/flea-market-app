@@ -17,6 +17,9 @@ use App\Http\Controllers\RegisterController;
 use Illuminate\Auth\Events\Registered;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use laravel\Fortify\Contracts\RegisteredResponse;
+use Laravel\Fortify\Contracts\LoginResponse;
+use App\Actions\Fortify\CustomLoginResponse;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -29,6 +32,8 @@ class FortifyServiceProvider extends ServiceProvider
             RegisteredUserController::class,
             RegisterController::class
         );
+
+        $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
     }
 
     /**

@@ -12,7 +12,7 @@
         <h1 class="change-profile__container-title">
             プロフィール設定
         </h1>
-        <form class="change-profile-form" action="" method="post" enctype="multipart/form-data">
+        <form class="change-profile-form" action="{{ route('update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="change-profile-image">
                 <img class="profile-icon" id="profile-preview"
@@ -21,11 +21,17 @@
                 <label class="change-profile-form-image-label" for="image">画像を選択する</label>
                 <input class="change-profile-form-image-input" type="file" id="image" name="image" hidden>
             </div>
+            @error('image')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="change-profile-form-input">
                 <label class="change-profile-form-input-label" for="name">ユーザー名</label>
                 <input class="change-profile-form-input-text" type="text" id="name" name="name"
                     value="{{ old('name', $user->name ?? '') }}">
             </div>
+            @error('name')
+                <div class="alert">{{ $message }}</div>
+            @enderror
             <div class="change-profile-form-input">
                 <label class="change-profile-form-input-label" for="post-code">郵便番号</label>
                 <input class="change-profile-form-input-text" type="text" id="post-code" name="postcode"

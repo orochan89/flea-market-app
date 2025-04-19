@@ -16,7 +16,7 @@ class RegisterTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_name_is_required()
+    public function test_name_is_required_for_register()
     {
         $response = $this->post('/register', [
             'name' => '', // 入力なし
@@ -32,7 +32,7 @@ class RegisterTest extends TestCase
         $response->assertSee('お名前を入力してください');
     }
 
-    public function test_email_is_required()
+    public function test_email_is_required_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
@@ -48,7 +48,7 @@ class RegisterTest extends TestCase
         $response->assertSee('メールアドレスを入力してください');
     }
 
-    public function test_password_is_required()
+    public function test_password_is_required_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
@@ -64,7 +64,7 @@ class RegisterTest extends TestCase
         $response->assertSee('パスワードを入力してください');
     }
 
-    public function test_password_must_be_at_least_8_characters()
+    public function test_password_must_be_at_least_8_characters_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
@@ -80,7 +80,7 @@ class RegisterTest extends TestCase
         $response->assertSee('パスワードは8文字以上で入力してください');
     }
 
-    public function test_password_must_match_confirmation()
+    public function test_password_must_match_confirmation_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
@@ -96,11 +96,11 @@ class RegisterTest extends TestCase
         $response->assertSee('パスワードと一致しません');
     }
 
-    public function test_successful_registration_creates_user_and_redirects_to_login()
+    public function test_successful_registration_creates_user_and_redirects_to_login_for_register()
     {
         $payload = [
             'name'                  => 'テストユーザー',
-            'email'                 => 'test_success@example.com',
+            'email'                 => 'test@example.com',
             'password'              => 'password123',
             'password_confirmation' => 'password123',
         ];

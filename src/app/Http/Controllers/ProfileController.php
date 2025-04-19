@@ -48,9 +48,12 @@ class ProfileController extends Controller
 
     public function changeProfile()
     {
-        $user = $userName = Auth::user();
+        $user = Auth::user();
 
-        $profile = Profile::firstOrCreate(['user_id' => Auth::id()], ['postcode' => '', 'address' => '', 'building' => '', 'image' => '']);
+        $profile = Profile::firstOrCreate(
+            ['user_id' => Auth::id()],
+            ['postcode' => '', 'address' => '', 'building' => '', 'image' => '']
+        );
         return view('edit_profile', compact('profile', 'user'));
     }
 

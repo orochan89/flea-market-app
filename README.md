@@ -95,9 +95,10 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 ### テスト環境のセットアップ
 
-1. php artisan key:generate --env=testing
-2. php artisan config:clear
-3. php artisan migrate --env=testing
+1. docker-compose exec php bash
+2. php artisan key:generate --env=testing
+3. php artisan config:clear
+4. php artisan migrate --env=testing
 
 ### テストの実行
 

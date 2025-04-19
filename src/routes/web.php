@@ -28,9 +28,18 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [ItemController::class, 'index'])->name('home');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
 
-Route::get('/detail', [ItemController::class, 'detail'])->name('detail');
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store']);
+
+    Route::get('/login', [AuthenticationController::class, 'create'])->name('login');
+    Route::post('/login', [AuthenticationController::class, 'store']);
+});
+
 
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthenticationController::class, 'destroy'])->name('logout');
+
     Route::get('/sell', [ItemController::class, 'sell'])->name('sell');
     Route::post('/sell', [ItemController::class, 'store']);
 

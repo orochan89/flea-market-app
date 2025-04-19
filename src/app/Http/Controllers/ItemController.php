@@ -12,20 +12,23 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        if (auth()->check()) {
-            $profile = auth()->user()->profile;
+        $user = auth()->user();
 
-            if (is_null($profile) || !$profile->isComplete()) {
-                return redirect()->route('changeProfile');
-            }
+        if ($user && (is_null($user->profile) || !$user->profile->isComplete())) {
+            return redirect()->route('changeProfile');
         }
 
         $tab = $request->query('tab', 'all');
         $keyword = $request->query('search');
 
         if ($tab === 'mylist') {
-            if (auth()->check()) {
-                $items = auth()->user()->likes()->with('item')->get()->pluck('item');
+            if ($user) {
+                $items = $user->likes()
+                    ->with('item')
+                    ->get()
+                    ->pluck('item')
+                    ->filter()
+                    ->filter(fn($item) => $item->user_id !== $user->id);
 
                 if ($keyword) {
                     $items = $items->filter(function ($item) use ($keyword) {
@@ -37,14 +40,15 @@ class ItemController extends Controller
             }
         } else {
             $query = Item::query();
-            if (auth()->check()) {
-                $query->where('user_id', '!=', auth()->id());
+            if ($user) {
+                $query->where('user_id', '!=', $user->id);
             }
             if ($keyword) {
                 $query->where('name', 'like', '%' . $keyword . '%');
             }
             $items = $query->get();
         }
+
         return view('index', compact('items', 'tab'));
     }
 
