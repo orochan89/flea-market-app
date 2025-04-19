@@ -12,6 +12,14 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
+        if (auth()->check()) {
+            $profile = auth()->user()->profile;
+
+            if (is_null($profile) || !$profile->isComplete()) {
+                return redirect()->route('changeProfile');
+            }
+        }
+
         $tab = $request->query('tab', 'all');
         $keyword = $request->query('search');
 

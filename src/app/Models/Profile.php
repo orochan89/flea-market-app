@@ -15,4 +15,9 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isComplete()
+    {
+        return !empty($this->postcode) && !empty($this->address);
+    }
 }

@@ -7,7 +7,7 @@
 @include('components.nav')
 
 @section('content')
-    <form action="" method="post">
+    <form action="{{ route('purchase', ['item' => $item->id]) }}" method="post">
         @csrf
         <div class="purchase-container">
             <div class="item-container">
@@ -37,11 +37,11 @@
                     <a class="mailing-address--edit" href="{{ route('viewAddress', ['item' => $item->id]) }}">変更する</a>
                 </div>
                 <div class="mailing-address-content">
-                    <input class="postcode-input" type="hidden" name="postcode" readonly>
+                    <input class="postcode-input" type="hidden" name="postcode" value="{{ $postcode }}" readonly>
                     <p class="postcode">〒{{ $postcode }}</p>
-                    <input class="address-input" type="hidden" name="address" readonly>
+                    <input class="address-input" type="hidden" name="address" value="{{ $address }}" readonly>
                     <p class="address">{{ $address }}</p>
-                    <input class="building-input" type="hidden" name="building" readonly>
+                    <input class="building-input" type="hidden" name="building" value="{{ $building }}" readonly>
                     <p class="building">{{ $building }}</p>
                 </div>
             </div>
@@ -71,8 +71,10 @@
                         </td>
                     </tr>
                 </table>
-                @if ($item->is_sold)
-                    <button class="sold__button" disabled>SOLD</button>
+                @if ($item->is_sold || $item->user_id === auth()->id())
+                    <button class="sold__button" disabled>
+                        {{ $item->is_sold ? 'SOLD' : '出品者の為、購入できません' }}
+                    </button>
                 @else
                     <button class="purchase__button" type="submit">購入
                         する</button>

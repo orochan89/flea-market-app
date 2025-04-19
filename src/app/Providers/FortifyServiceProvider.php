@@ -14,21 +14,21 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Auth\Events\Registered;
 use Laravel\Fortify\Contracts\RegisterResponse;
+use laravel\Fortify\Contracts\RegisteredResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void
+    public function register()
     {
-        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
-            public function toResponse($request)
-            {
-                return redirect('/mypage/profile');
-            }
-        });
+        $this->app->singleton(
+            RegisteredUserController::class,
+            RegisterController::class
+        );
     }
 
     /**

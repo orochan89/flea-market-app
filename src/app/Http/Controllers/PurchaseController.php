@@ -34,7 +34,7 @@ class PurchaseController extends Controller
             return redirect()->back()->with('error', 'この商品は既に売り切れています');
         }
 
-        $page = 'buy';
+        $tab = 'buy';
 
         Purchase::create([
             'user_id' => Auth::id(),
@@ -48,7 +48,7 @@ class PurchaseController extends Controller
         $item->is_sold = true;
         $item->save();
 
-        return redirect()->route('mypage', ['page' => 'buy']);
+        return redirect()->route('mypage', ['tab' => 'buy']);
     }
 
     public function viewAddress(Request $request, Item $item)
@@ -61,10 +61,12 @@ class PurchaseController extends Controller
     {
         $user = auth()->user();
 
-        $postcode = $request->postcode;
-        $address = $request->address;
-        $building = $request->building;
-
-        return view('purchase', compact('item', 'user', 'postcode', 'address', 'building'));
+        return view('purchase', [
+            'item' => $item,
+            'postcode' => $request->postcode,
+            'address' => $request->address,
+            'building' => $request->building,
+            'user' => $user
+        ]);
     }
 }
