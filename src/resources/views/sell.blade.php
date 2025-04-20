@@ -13,7 +13,7 @@
         </h1>
         <form class="sell-form" action="" method="post" enctype="multipart/form-data">
             @csrf
-            <h3 class="sell-form-image-title">商品画像</h3>
+            <h2 class="sell-form-image-title">商品画像</h2>
             <div class="sell-form-image">
                 <img class="image-preview" id="image-preview" src="" alt="プレビュー画像"
                     style="display: none; margin-top: 10px; max-width: 300px;">
@@ -25,7 +25,7 @@
                 <div class="alert">{{ $message }}</div>
             @enderror
             <div class="item-detail">
-                <h3 class="item-detail-title">商品の詳細</h3>
+                <h2 class="item-detail-title">商品の詳細</h2>
             </div>
             <p class="item-detail-category-title">カテゴリー</p>
             <div class="item-detail-category">
@@ -58,7 +58,7 @@
             @error('condition')
                 <div class="alert">{{ $message }}</div>
             @enderror
-            <h3 class="item-description">商品名と説明</h3>
+            <h2 class="item-description">商品名と説明</h2>
             <div class="item-description__wrap">
                 <label class="item-description-label" for="item-name">商品名</label>
                 <input class="item-description-input" type="text" id="item-name" name="name"

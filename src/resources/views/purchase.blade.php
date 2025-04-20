@@ -14,8 +14,8 @@
                 <div class="item-detail">
                     <img class="item-image" src="{{ asset('storage/' . $item->image) }}" alt="item_image">
                     <div class="item-detail-text">
-                        <h2 class="item-name">{{ $item->name }}</h2>
-                        <h3 class="item-price">{{ number_format($item->price) }}</h3>
+                        <h1 class="item-name">{{ $item->name }}</h1>
+                        <h2 class="item-price">{{ number_format($item->price) }}</h2>
                     </div>
                 </div>
                 @php

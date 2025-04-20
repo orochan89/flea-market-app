@@ -17,9 +17,9 @@
         </div>
         <div class="item-detail-area">
             <div class="item-detail-container">
-                <h2 class="item-detail-name">{{ $item->name }}</h2>
+                <h1 class="item-detail-name">{{ $item->name }}</h1>
                 <p class="item-detail-brand">{{ $item->brand }}</p>
-                <h3 class="item-detail-price">{{ number_format($item->price) }}</h3>
+                <h2 class="item-detail-price">{{ number_format($item->price) }}</h2>
             </div>
             <div>
                 <form class="likes-form" action="{{ route('like.toggle', ['item' => $item->id]) }}" method="post">

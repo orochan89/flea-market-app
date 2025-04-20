@@ -14,7 +14,7 @@
                 <img class="profile-image"
                     src="{{ $profile->image ? asset('storage/' . $profile->image) : asset('images/default-profile.png') }}"
                     alt="user-icon">
-                <h2 class="profile-user-name">{{ $user->name }}</h2>
+                <h1 class="profile-user-name">{{ $user->name }}</h1>
                 <input class="profile-user-name" type="hidden" value="{{ $user->name }}" name="name" readonly>
                 <button class="profile-edit-button" type="submit">プロフィールを編集</button>
             </div>
