@@ -66,4 +66,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function hasCompletedProfile()
+    {
+        // ユーザーに関連するプロフィールが存在し、プロフィールが完了しているかを確認
+        return $this->profile && $this->profile->isComplete();
+    }
 }

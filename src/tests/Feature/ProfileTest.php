@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Purchase;
 
 class ProfileTest extends TestCase
 {
@@ -23,6 +25,48 @@ class ProfileTest extends TestCase
             'image' => 'default.png',
         ]);
         $this->actingAs($user);
+
+        $otherUser = User::factory()->create();
+
+        Item::create([
+            'user_id' => $user->id,
+            'name' => 'クラッチバッグ',
+            'condition' => 0,
+            'brand' => 'leather',
+            'detail' => '黒いレザーのクラッチバッグです',
+            'price' => 3000,
+            'image' => 'clutch_bag.jpg',
+            'is_sold' => false,
+        ]);
+        $purchasedItem = Item::create([
+            'user_id' => $otherUser->id,
+            'name' => 'ショルダーバッグ',
+            'condition' => 2,
+            'brand' => 'cape',
+            'detail' => '大きめのショルダーバッグです',
+            'price' => 3000,
+            'image' => 'shoulder_bag.jpg',
+            'is_sold' => true,
+        ]);
+
+        Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $purchasedItem->id,
+            'payment' => 0,
+            'postcode' => '111-1111',
+            'address' => 'テスト市1丁目1-1',
+            'building' => 'テストビル101',
+        ]);
+
+        $sellResponse = $this->get('/mypage?page=sell');
+        $sellResponse->assertStatus(200);
+        $sellResponse->assertSee('クラッチバッグ');
+        $sellResponse->assertSee('clutch_bag.jpg');
+
+        $buyResponse = $this->get('/mypage?page=buy');
+        $buyResponse->assertStatus(200);
+        $buyResponse->assertSee('ショルダーバッグ');
+        $buyResponse->assertSee('shoulder_bag.jpg');
 
         $response = $this->get(route('changeProfile'));
 

@@ -36,15 +36,20 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthenticationController::class, 'store']);
 });
 
-Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-    ->middleware(['auth', 'throttle:6,1'])
-    ->name('verification.send');
+Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', EmailVerificationPromptController::class)->name('verification.notice');
+});
 
 Route::middleware('auth', 'verified')->group(function () {
-    Route::get('/email/verify', EmailVerificationPromptController::class)->name('verification.notice');
+
     Route::get('/mypage/profile', [ProfileController::class, 'changeProfile'])->name('changeProfile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('update');
 });
+
+
+Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.send');
 
 Route::middleware('auth', 'verified', 'profile.complete')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'destroy'])->name('logout');

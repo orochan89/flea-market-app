@@ -8,18 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckProfileCompletion
 {
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        $user = Auth::user();
-
-        if ($user) {
-            $profile = $user->profile;
-
-            if (empty($profile->postcode) || empty($profile->address)) {
+        if (auth()->check() && !auth()->user()->hasCompletedProfile()) {
+            if (!$request->is('mypage/profile')) {
                 return redirect()->route('changeProfile');
             }
         }
-
         return $next($request);
     }
 }
