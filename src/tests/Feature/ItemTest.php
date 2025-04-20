@@ -4,24 +4,16 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Profile;
-use App\Models\Like;
-use App\Models\Comment;
-use Illuminate\Contracts\Auth\Authenticatable;
 
 class ItemTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     use RefreshDatabase;
 
+    // testcase ID:4 全商品を取得できる
     public function test_all_items_are_displayed_on_recommend_tab()
     {
         $user = User::factory()->create();
@@ -66,6 +58,7 @@ class ItemTest extends TestCase
         $response->assertSee('商品3');
     }
 
+    // testcase ID:4 購入済み商品は「SOLD」と表示される
     public function test_sold_items_are_displayed_as_sold_on_recommend_tab()
     {
         $user = User::factory()->create();
@@ -78,7 +71,7 @@ class ItemTest extends TestCase
             'detail' => '詳細説明',
             'price' => 3000,
             'image' => 'test.jpg',
-            'is_sold' => true, // 購入済み
+            'is_sold' => true,
         ]);
 
         $unsoldItem = Item::create([
@@ -89,7 +82,7 @@ class ItemTest extends TestCase
             'detail' => '詳細2',
             'price' => 2000,
             'image' => 'image2.jpg',
-            'is_sold' => false, // 未購入
+            'is_sold' => false,
         ]);
 
         $response = $this->get('/');
@@ -108,6 +101,7 @@ class ItemTest extends TestCase
         $this->assertStringNotContainsString('SOLD', $unsoldBlock);
     }
 
+    // testcase ID:4 自分が出品した商品は表示されない
     public function test_user_cannot_see_own_items_on_recommend_tab()
     {
         $this->withoutExceptionHandling();
@@ -158,6 +152,7 @@ class ItemTest extends TestCase
         $response->assertSee($otherItem->image);
     }
 
+    // testcase ID:5 いいねした商品だけが表示される
     public function test_only_liked_items_are_displayed_on_mylist_tab()
     {
         $user = User::factory()->create()->first();
@@ -170,7 +165,6 @@ class ItemTest extends TestCase
         ]);
         $otherUser = User::factory()->create();
 
-        // いいねしていない商品を作成
         $unlikedItem = Item::create([
             'user_id' => $otherUser->id,
             'name' => '未いいねの商品',
@@ -182,7 +176,6 @@ class ItemTest extends TestCase
             'is_sold' => false,
         ]);
 
-        // いいねした商品を作成
         $likedItem = Item::create([
             'user_id' => $otherUser->id,
             'name' => 'いいねした商品',
@@ -194,29 +187,24 @@ class ItemTest extends TestCase
             'is_sold' => false,
         ]);
 
-        // ユーザーがいいねを付ける
         $user->likes()->create([
             'item_id' => $likedItem->id
         ]);
 
-        // ログインしてマイリストページ（tab=mylist）にアクセス
-        $response = $this->actingAs($user)->get(route('home') . '?tab=mylist'); // URLにtab=mylistを付ける
+        $response = $this->actingAs($user)->get(route('home') . '?tab=mylist');
 
-        // ステータスコードが200であることを確認
         $response->assertStatus(200);
 
-        // いいねした商品が表示されていることを確認
         $response->assertSee($likedItem->name);
         $response->assertSee($likedItem->image);
 
-        // いいねしていない商品が表示されていないことを確認
         $response->assertDontSee($unlikedItem->name);
         $response->assertDontSee($unlikedItem->image);
     }
 
+    // testcase ID:5 購入済み商品は「SOLD」と表示される
     public function test_sold_item_displays_sold_label_on_mylist_tab()
     {
-        // ユーザーを作成
         $user = User::factory()->create()->first();
         $profile = Profile::create([
             'user_id' => $user->id,
@@ -228,7 +216,6 @@ class ItemTest extends TestCase
 
         $otherUser = User::factory()->create();
 
-        // 購入済みの商品を作成（is_sold = true）
         $likedSoldItem = Item::create([
             'user_id' => $otherUser->id,
             'name' => '購入済み商品',
@@ -237,7 +224,7 @@ class ItemTest extends TestCase
             'detail' => '商品の詳細',
             'price' => 3000,
             'image' => 'sold_item.jpg',
-            'is_sold' => true, // 購入済み
+            'is_sold' => true,
         ]);
 
         $likedUnsoldItem = Item::create([
@@ -248,7 +235,7 @@ class ItemTest extends TestCase
             'detail' => '詳細2',
             'price' => 2000,
             'image' => 'unsold_item.jpg',
-            'is_sold' => false, // 未購入
+            'is_sold' => false,
         ]);
 
         $user->likes()->create([
@@ -258,16 +245,13 @@ class ItemTest extends TestCase
             'item_id' => $likedUnsoldItem->id
         ]);
 
-        // ログインしてマイリストページ（tab=mylist）にアクセス
         $response = $this->actingAs($user)->get(route('home') . '?tab=mylist');
 
-        // ステータスコードが200であることを確認
         $response->assertStatus(200);
 
-        // 購入済み商品が「Sold」ラベルとともに表示されていることを確認
         $response->assertSee($likedSoldItem->name);
-        $response->assertSee($likedSoldItem->image); // 商品名が表示されている
-        $response->assertSee('SOLD'); // 「SOLD」ラベルが表示されている
+        $response->assertSee($likedSoldItem->image);
+        $response->assertSee('SOLD');
 
         $html = $response->getContent();
         $unsoldBlock = collect(explode('<div class="item-preview">', $html))
@@ -277,11 +261,11 @@ class ItemTest extends TestCase
         $this->assertStringNotContainsString('SOLD', $unsoldBlock);
     }
 
+    // testcase ID:5 自分が出品した商品は表示されない
     public function test_my_items_are_not_shown_in_mylist_tab()
     {
-        // ログインユーザーと他ユーザー作成
         $user = User::factory()->create()->first();
-        $profile = Profile::create([
+        Profile::create([
             'user_id' => $user->id,
             'postcode' => '123-4567',
             'address' => '東京都渋谷区',
@@ -291,7 +275,6 @@ class ItemTest extends TestCase
 
         $otherUser = User::factory()->create();
 
-        // 自分が出品した商品
         $likedMyItem = Item::create([
             'user_id' => $user->id,
             'name' => '自分の商品',
@@ -303,7 +286,6 @@ class ItemTest extends TestCase
             'is_sold' => false,
         ]);
 
-        // 他人が出品した商品（いいね対象）
         $likedOtherItem = Item::create([
             'user_id' => $otherUser->id,
             'name' => '他人の商品',
@@ -321,21 +303,19 @@ class ItemTest extends TestCase
         $user->likes()->create([
             'item_id' => $likedOtherItem->id
         ]);
-        // マイリストタブへアクセス
+
         $response = $this->actingAs($user)->get('/?tab=mylist');
 
-        // ステータスコード確認
         $response->assertStatus(200);
 
-        // 他人の商品は表示される
         $response->assertSee($likedOtherItem->name);
         $response->assertSee($likedOtherItem->image);
 
-        // 自分の商品は表示されない
         $response->assertDontSee($likedMyItem->name);
         $response->assertDontSee($likedMyItem->image);
     }
 
+    // testcase ID:5 未認証の場合は何も表示されない
     public function test_mylist_page_shows_nothing_for_guest()
     {
         $otherUser = User::factory()->create();
@@ -350,21 +330,20 @@ class ItemTest extends TestCase
             'image' => 'unsold_item.jpg',
             'is_sold' => false,
         ]);
-        // ゲストユーザー（未認証）でマイリストページにアクセス
+
         $response = $this->get('/?tab=mylist');
 
-        // ステータスコードが200であることを確認
         $response->assertStatus(200);
 
-        // ページに「いいねした商品」や「マイリストの商品」が含まれていないことを確認
         $response->assertDontSee($otherItem->name);
         $response->assertDontSee($otherItem->image);
     }
 
+    // testcase ID:6 「商品名」で部分一致検索ができる
     public function test_items_can_be_searched_by_partial_name()
     {
         $otherUser = User::factory()->create();
-        // 商品を作成
+
         $otherItem1 = Item::create([
             'user_id' => $otherUser->id,
             'name' => 'クラッチバッグ',
@@ -396,24 +375,21 @@ class ItemTest extends TestCase
             'is_sold' => false,
         ]);
 
-        // 検索ワードを入力してリクエストを送信（今回は "りんご"）
         $response = $this->get('/?search=バッグ');
 
         $response->assertStatus(200);
 
-        // 部分一致する商品が表示されることを確認
         $response->assertSee('クラッチバッグ');
         $response->assertSee('ショルダーバッグ');
 
-        // 一致しない商品が表示されないことを確認
         $response->assertDontSee('カバン');
     }
 
+    // testcase ID:6 検索状態がマイリストでも保持されている
     public function test_search_keyword_is_retained_on_mylist_tab()
     {
-        // ユーザー作成＋ログイン
         $user = User::factory()->create()->first();
-        $profile = Profile::create([
+        Profile::create([
             'user_id' => $user->id,
             'postcode' => '123-4567',
             'address' => '東京都渋谷区',
@@ -466,12 +442,10 @@ class ItemTest extends TestCase
             'item_id' => $otherItem3->id
         ]);
 
-        // 検索キーワード付きでマイリストタブを開く
         $response = $this->get('/?tab=mylist&search=バッグ');
 
         $response->assertStatus(200);
 
-        // 検索キーワードが検索フォームに保持されているか確認
         $response->assertSee('value="バッグ"', false);
 
         $response->assertSee('クラッチバッグ');
@@ -480,10 +454,11 @@ class ItemTest extends TestCase
         $response->assertDontSee('カバン');
     }
 
+    //// testcase ID:7 必要な情報が表示される（商品画像、商品名、ブランド名、価格、いいね数、コメント数、商品説明、商品情報（カテゴリ、商品の状態）、コメント数、コメントしたユーザー情報、コメント内容）
     public function test_product_detail_page_displays_all_required_information()
     {
         $user = User::factory()->create()->first();
-        $profile = Profile::create([
+        Profile::create([
             'user_id' => $user->id,
             'postcode' => '123-4567',
             'address' => '東京都渋谷区',
@@ -521,7 +496,7 @@ class ItemTest extends TestCase
         $otherItem->categories()->attach([
             $category1->id,
         ]);
-        // LikeとCommentのダミーデータ作成
+
         $otherItem->likes()->create(['user_id' => $user->id]);
         $otherItem->likes()->create(['user_id' => $commenter->id]);
 
@@ -538,7 +513,6 @@ class ItemTest extends TestCase
 
         $response->assertStatus(200);
 
-        // 基本情報
         $response->assertSee('クラッチバッグ');
         $response->assertSee('良好');
         $response->assertSee('leather');
@@ -548,19 +522,18 @@ class ItemTest extends TestCase
 
         $response->assertSee('メンズ');
 
-        // いいね数、コメント数
         $response->assertSeeText((string)$likeCount);
         $response->assertSeeText((string)$commentCount);
 
-        // コメント詳細
         $response->assertSee($commenter->name);
         $response->assertSee('商品状態を詳しく教えてください');
     }
 
+    // testcase ID:7 複数選択されたカテゴリが表示されているか
     public function test_product_detail_page_displays_all_required_information_with_multiple_categories()
     {
         $user = User::factory()->create()->first();
-        $profile = Profile::create([
+        Profile::create([
             'user_id' => $user->id,
             'postcode' => '123-4567',
             'address' => '東京都渋谷区',
@@ -573,7 +546,7 @@ class ItemTest extends TestCase
         $otherUser = User::factory()->create();
 
         $commenter = User::factory()->create();
-        $commenterProfile = Profile::create([
+        Profile::create([
             'user_id' => $commenter->id,
             'postcode' => '111-1111',
             'address' => '栃木県宇都宮市',
@@ -600,7 +573,7 @@ class ItemTest extends TestCase
             $category1->id,
             $category2->id
         ]);
-        // LikeとCommentのダミーデータ作成
+
         $otherItem->likes()->create(['user_id' => $user->id]);
         $otherItem->likes()->create(['user_id' => $commenter->id]);
 
@@ -617,7 +590,6 @@ class ItemTest extends TestCase
 
         $response->assertStatus(200);
 
-        // 基本情報
         $response->assertSee('クラッチバッグ');
         $response->assertSee('良好');
         $response->assertSee('leather');
@@ -628,11 +600,9 @@ class ItemTest extends TestCase
         $response->assertSee('メンズ');
         $response->assertSee('ファッション');
 
-        // いいね数、コメント数
         $response->assertSeeText((string)$likeCount);
         $response->assertSeeText((string)$commentCount);
 
-        // コメント詳細
         $response->assertSee($commenter->name);
         $response->assertSee('商品状態を詳しく教えてください');
     }

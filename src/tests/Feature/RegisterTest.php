@@ -3,23 +3,17 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
     use RefreshDatabase;
 
+    // testcase ID:1 名前が入力されていない場合、バリデーションメッセージが表示される
     public function test_name_is_required_for_register()
     {
         $response = $this->post('/register', [
-            'name' => '', // 入力なし
+            'name' => '',
             'email' => 'test@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
@@ -32,11 +26,12 @@ class RegisterTest extends TestCase
         $response->assertSee('お名前を入力してください');
     }
 
+    // testcase ID:1 メールアドレスが入力されていない場合、バリデーションメッセージが表示される
     public function test_email_is_required_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
-            'email' => '', //入力なし
+            'email' => '',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
@@ -48,12 +43,13 @@ class RegisterTest extends TestCase
         $response->assertSee('メールアドレスを入力してください');
     }
 
+    // testcase ID:1 パスワードが入力されていない場合、バリデーションメッセージが表示される
     public function test_password_is_required_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
-            'password' => '', //入力なし
+            'password' => '',
             'password_confirmation' => '',
         ]);
 
@@ -64,12 +60,13 @@ class RegisterTest extends TestCase
         $response->assertSee('パスワードを入力してください');
     }
 
+    // testcase ID:1 パスワードが7文字以下の場合、バリデーションメッセージが表示される
     public function test_password_must_be_at_least_8_characters_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
-            'password' => 'pass123', // 7文字
+            'password' => 'pass123',
             'password_confirmation' => 'pass123',
         ]);
 
@@ -80,13 +77,14 @@ class RegisterTest extends TestCase
         $response->assertSee('パスワードは8文字以上で入力してください');
     }
 
+    // testcase ID:1 パスワードが確認用パスワードと一致しない場合、バリデーションメッセージが表示される
     public function test_password_must_match_confirmation_for_register()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
             'password' => 'password123',
-            'password_confirmation' => 'different123', // パスワード不一致
+            'password_confirmation' => 'different123',
         ]);
 
         $response->assertSessionHasErrors(['password']);
@@ -96,6 +94,7 @@ class RegisterTest extends TestCase
         $response->assertSee('パスワードと一致しません');
     }
 
+    // testcase ID:1 全ての項目が入力されている場合、会員情報が登録され、ログイン画面に遷移される
     public function test_successful_registration_creates_user_and_redirects_to_login_for_register()
     {
         $payload = [
