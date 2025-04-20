@@ -5,8 +5,7 @@
 @endsection
 
 
-@section('nav')
-@endsection
+@include('components.nav')
 
 @section('content')
     <div class="verify-email__container">
@@ -18,7 +17,7 @@
                 メール認証を完了してください。
             </p>
         </div>
-        <form class="verify-email-form" action="" method="post">
+        <form class="verify-email-form" action="{{ route('verification.send') }}" method="post">
             @csrf
             <div class="verify-email__button">
                 <button class="verify-email__button--submit" type="submit">
@@ -26,7 +25,7 @@
                 </button>
             </div>
         </form>
-        <form class="resend-email-form" action="" method="post">
+        <form class="resend-email-form" action="{{ route('verification.send') }}" method="post">
             @csrf
             <div class="resend-email__button">
                 <button class="resend-email__button--submit" class="submit">

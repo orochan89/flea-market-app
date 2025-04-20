@@ -29,7 +29,7 @@ class ExhibitionRequest extends FormRequest
             'condition' => 'required',
             'brand' => 'nullable|string|max:255',
             'detail' => 'required|string|max:255',
-            'price' => 'required|integer',
+            'price' => 'required|integer|min:1',
             'image' => 'required|mimes:jpeg,jpg,png|max:5120'
         ];
     }
@@ -49,6 +49,7 @@ class ExhibitionRequest extends FormRequest
             'detail.max' => '商品の説明は255文字以内で入力してください',
             'price.required' => '販売価格を入力してください',
             'price.integer' => '販売価格は整数で入力してください',
+            'price.min' => '販売価格は自然数で入力してください',
             'image.required' => '商品画像を選択してください',
             'image.mimes' => '商品画像はjpeg, jpg, png形式で選択してください',
             'image.max' => '商品画像は5MB以下のものを使用してください'

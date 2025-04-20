@@ -42,7 +42,7 @@ class ProfileController extends Controller
             $items = collect();
         }
 
-        return view('profile', compact('items', 'page', 'user', 'profile', 'keyword'));
+        return view('profile', compact('page', 'items', 'user', 'profile', 'keyword'));
     }
 
     public function changeProfile()

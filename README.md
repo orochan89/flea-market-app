@@ -18,7 +18,7 @@
 
 #### 開発環境 .env ファイル
 
-APP_NAME=Laravel  
+APP_NAME=Laravel
 APP_ENV=local  
 APP_KEY=base64:zq2Twup5R6UrCPsLEQ3LOcprR0/b+6uY8ElHLpYpZBU=  
 APP_DEBUG=true  
@@ -49,12 +49,12 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 
 MAIL_MAILER=smtp  
-MAIL_HOST=sandbox.smtp.mailtrap.io  
-MAIL_PORT=2525  
-MAIL_USERNAME=3e4cedb4d5f44b  
-MAIL_PASSWORD=7fe14723dd831e  
-MAIL_ENCRYPTION=tls  
-MAIL_FROM_ADDRESS="noreply@example.com"  
+MAIL_HOST=mail  
+MAIL_PORT=1025  
+MAIL_USERNAME=null  
+MAIL_PASSWORD=null  
+MAIL_ENCRYPTION=null  
+MAIL_FROM_ADDRESS=noreply@example.com  
 MAIL_FROM_NAME="${APP_NAME}"
 
 AWS_ACCESS_KEY_ID=  
@@ -118,7 +118,7 @@ LOG_LEVEL=debug
 
 DB_CONNECTION=mysql  
 DB_HOST=mysql  
-DB_PORT=3306
+DB_PORT=3306  
 DB_DATABASE=demo_test  
 DB_USERNAME=root  
 DB_PASSWORD=root
@@ -137,12 +137,12 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 
 MAIL_MAILER=smtp  
-MAIL_HOST=sandbox.smtp.mailtrap.io  
-MAIL_PORT=2525  
-MAIL_USERNAME=3e4cedb4d5f44b  
-MAIL_PASSWORD=7fe14723dd831e  
-MAIL_ENCRYPTION=tls  
-MAIL_FROM_ADDRESS="noreply@example.com"  
+MAIL_HOST=mail  
+MAIL_PORT=1025  
+MAIL_USERNAME=null  
+MAIL_PASSWORD=null  
+MAIL_ENCRYPTION=null  
+MAIL_FROM_ADDRESS=noreply@example.com  
 MAIL_FROM_NAME="${APP_NAME}"
 
 AWS_ACCESS_KEY_ID=  
@@ -164,7 +164,8 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ・ php 7.4.9  
 ・ Laravel 8.\*  
 ・ MySQL 8.0.26  
-・ JavaScript
+・ JavaScript  
+・ MailHog
 
 ## ER 図
 
