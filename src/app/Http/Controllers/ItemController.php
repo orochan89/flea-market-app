@@ -18,10 +18,10 @@ class ItemController extends Controller
             return redirect()->route('changeProfile');
         }
 
-        $tab = $request->query('tab', 'all');
+        $page = $request->query('page', 'all');
         $keyword = $request->query('search');
 
-        if ($tab === 'mylist') {
+        if ($page === 'mylist') {
             if ($user) {
                 $items = $user->likes()
                     ->with('item')
@@ -49,7 +49,7 @@ class ItemController extends Controller
             $items = $query->get();
         }
 
-        return view('index', compact('items', 'tab'));
+        return view('index', compact('items', 'page'));
     }
 
     public function detail(Item $item)
@@ -88,6 +88,6 @@ class ItemController extends Controller
             $item->categories()->attach($categoryIds);
         }
 
-        return redirect()->route('mypage');
+        return redirect()->route('mypage', ['page' => 'sell']);
     }
 }

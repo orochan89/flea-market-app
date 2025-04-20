@@ -42,7 +42,7 @@ class SellTest extends TestCase
 
         $response = $this->post(route('sell'), $item);
 
-        $response->assertRedirect(route('mypage'));
+        $response->assertRedirect(route('mypage', ['page' => 'sell']));
 
         $item = Item::where('name', 'クラッチバッグ')->first();
         $this->assertNotNull($item);

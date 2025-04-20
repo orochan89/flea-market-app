@@ -9,13 +9,13 @@
 @section('content')
     <div class="flea-market__container">
         <div class="flea-market__container-tabs">
-            <a class="tab {{ request('tab') !== 'mylist' ? 'active' : '' }}"
+            <a class="tab {{ request('page') !== 'mylist' ? 'active' : '' }}"
                 href="{{ url('/?' . http_build_query(['search' => request('search')])) }}">おすすめ</a>
-            <a class="tab {{ request('tab') === 'mylist' ? 'active' : '' }}"
-                href="{{ url('/?' . http_build_query(['tab' => 'mylist', 'search' => request('search')])) }}">マイリスト</a>
+            <a class="tab {{ request('page') === 'mylist' ? 'active' : '' }}"
+                href="{{ url('/?' . http_build_query(['page' => 'mylist', 'search' => request('search')])) }}">マイリスト</a>
         </div>
         {{-- 以下 mylistタブ表示 --}}
-        @if ($tab === 'mylist')
+        @if ($page === 'mylist')
             <div class="flea-market__tab-content">
                 <div class="flea-market__flex-box">
                     @foreach ($items as $item)

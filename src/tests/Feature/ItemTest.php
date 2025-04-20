@@ -191,7 +191,7 @@ class ItemTest extends TestCase
             'item_id' => $likedItem->id
         ]);
 
-        $response = $this->actingAs($user)->get(route('home') . '?tab=mylist');
+        $response = $this->actingAs($user)->get(route('home') . '?page=mylist');
 
         $response->assertStatus(200);
 
@@ -245,7 +245,7 @@ class ItemTest extends TestCase
             'item_id' => $likedUnsoldItem->id
         ]);
 
-        $response = $this->actingAs($user)->get(route('home') . '?tab=mylist');
+        $response = $this->actingAs($user)->get(route('home') . '?page=mylist');
 
         $response->assertStatus(200);
 
@@ -304,7 +304,7 @@ class ItemTest extends TestCase
             'item_id' => $likedOtherItem->id
         ]);
 
-        $response = $this->actingAs($user)->get('/?tab=mylist');
+        $response = $this->actingAs($user)->get('/?page=mylist');
 
         $response->assertStatus(200);
 
@@ -331,7 +331,7 @@ class ItemTest extends TestCase
             'is_sold' => false,
         ]);
 
-        $response = $this->get('/?tab=mylist');
+        $response = $this->get('/?page=mylist');
 
         $response->assertStatus(200);
 
@@ -442,7 +442,7 @@ class ItemTest extends TestCase
             'item_id' => $otherItem3->id
         ]);
 
-        $response = $this->get('/?tab=mylist&search=バッグ');
+        $response = $this->get('/?page=mylist&search=バッグ');
 
         $response->assertStatus(200);
 

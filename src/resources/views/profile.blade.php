@@ -21,17 +21,17 @@
         </form>
         <div class="item__container">
             <div class="item__container-tabs">
-                <a class="tab {{ request('tab') === 'sell' ? 'active' : '' }}"
-                    href="{{ url()->current() . '?' . http_build_query(['tab' => 'sell', 'search' => request('search')]) }}">
+                <a class="tab {{ request('page') === 'sell' ? 'active' : '' }}"
+                    href="{{ url()->current() . '?' . http_build_query(['page' => 'sell', 'search' => request('search')]) }}">
                     出品した商品
                 </a>
-                <a class="tab {{ request('tab') === 'buy' ? 'active' : '' }}"
-                    href="{{ url()->current() . '?' . http_build_query(['tab' => 'buy', 'search' => request('search')]) }}">
+                <a class="tab {{ request('page') === 'buy' ? 'active' : '' }}"
+                    href="{{ url()->current() . '?' . http_build_query(['page' => 'buy', 'search' => request('search')]) }}">
                     購入した商品
                 </a>
             </div>
         </div>
-        @if ($tab === 'buy')
+        @if ($page === 'buy')
             <div class="flea-market__tab-content">
                 <div class="flea-market__flex-box">
                     @foreach ($items as $item)
@@ -50,7 +50,7 @@
                     @endforeach
                 </div>
             </div>
-        @elseif ($tab === 'sell')
+        @elseif ($page === 'sell')
             <div class="flea-market__tab-content">
                 <div class="flea-market__flex-box">
                     @foreach ($items as $item)

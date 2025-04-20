@@ -46,7 +46,7 @@ class PurchaseTest extends TestCase
         ];
         $response = $this->post(route('purchase', ['item' => $item->id]), $purchaseData);
 
-        $response->assertRedirect(route('mypage', ['tab' => 'buy']));
+        $response->assertRedirect(route('mypage', ['page' => 'buy']));
 
         $this->assertDatabaseHas('purchases', [
             'user_id' => $user->id,
@@ -131,7 +131,7 @@ class PurchaseTest extends TestCase
         ];
         $this->post(route('purchase', ['item' => $item->id]), $purchaseData);
 
-        $response = $this->get(route('mypage', ['tab' => 'buy']));
+        $response = $this->get(route('mypage', ['page' => 'buy']));
 
         $response->assertSee('クラッチバッグ');
         $response->assertSee('clutch_bag.jpg');
@@ -218,6 +218,6 @@ class PurchaseTest extends TestCase
             'payment' => 1,
         ]);
 
-        $response->assertRedirect(route('mypage', ['tab' => 'buy']));
+        $response->assertRedirect(route('mypage', ['page' => 'buy']));
     }
 }

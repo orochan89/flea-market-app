@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
-use App\Models\User;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +19,14 @@ class ProfileController extends Controller
             ['postcode' => '', 'address' => '', 'building' => '', 'image' => '']
         );
 
-        $tab = $request->query('tab', 'sell');
+        $page = $request->query('page', 'sell');
         $keyword = $request->query('search');
 
-        if ($tab === 'sell') {
+        if ($page === 'sell') {
             $items = Item::where('user_id', $user->id)
                 ->search($keyword)
                 ->get();
-        } elseif ($tab === 'buy') {
+        } elseif ($page === 'buy') {
             $purchases = $user->purchases()->with('item')->get();
             $items = $purchases->pluck('item');
 
@@ -43,7 +42,7 @@ class ProfileController extends Controller
             $items = collect();
         }
 
-        return view('profile', compact('items', 'tab', 'user', 'profile', 'keyword'));
+        return view('profile', compact('items', 'page', 'user', 'profile', 'keyword'));
     }
 
     public function changeProfile()
@@ -80,6 +79,6 @@ class ProfileController extends Controller
             'image' => $imagePath
         ]);
 
-        return redirect()->route('mypage');
+        return redirect()->route('mypage', ['page' => 'sell']);
     }
 }
