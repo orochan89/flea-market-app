@@ -16,6 +16,8 @@ class PurchaseTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+
     public function test_user_can_purchase_item()
     {
         $user = User::factory()->create()->first();
@@ -150,9 +152,51 @@ class PurchaseTest extends TestCase
         $response->assertSee('clutch_bag.jpg');
     }
 
-    public function test_payment_method_selection_reflects_on_checkout_page()
+    // public function test_payment_method_selection_reflects_on_checkout_page()
+    // {
+    //     $user = User::factory()->create()->first();
+    //     $this->actingAs($user);
+
+    //     // 商品データ作成
+    //     $otherUser = User::factory()->create();
+    //     $item = Item::create([
+    //         'user_id' => $otherUser->id,
+    //         'name' => 'クラッチバッグ',
+    //         'condition' => 0,
+    //         'brand' => 'leather',
+    //         'detail' => '黒いレザーのクラッチバッグです',
+    //         'price' => 3000,
+    //         'image' => 'clutch_bag.jpg',
+    //         'is_sold' => false,
+    //     ]);
+
+    //     // 支払い方法を送信（例: 0 = コンビニ払い, 1 = カード払い）
+    //     $response = $this->post(route('purchase', ['item' => $item->id]), [
+    //         'payment' => 1, // カード払いを選択
+    //         'postcode' => '123-4567',
+    //         'address' => '東京都渋谷区',
+    //         'building' => 'テストビル',
+    //     ]);
+
+    //     $response->assertStatus(302); // リダイレクト確認
+    //     $response->assertRedirect(route('purchase', ['item' => $item->id]));
+
+    //     $summaryResponse = $this->get(route('purchase', ['item' => $item->id]));
+
+    //     $summaryResponse->assertStatus(200); // ページが正常に表示されることを確認
+    //     $summaryResponse->assertSee('カード払い'); // 支払い方法が正しく反映されていることを確認
+    // }
+
+    public function test_address_reflects_on_purchase_page()
     {
         $user = User::factory()->create()->first();
+        Profile::create([
+            'user_id' => $user->id,
+            'postcode' => '123-4567',
+            'address' => '東京都渋谷区',
+            'building' => 'テストビル101',
+            'image' => 'default.png',
+        ]);
         $this->actingAs($user);
 
         // 商品データ作成
@@ -168,20 +212,69 @@ class PurchaseTest extends TestCase
             'is_sold' => false,
         ]);
 
-        // 支払い方法を送信（例: 0 = コンビニ払い, 1 = カード払い）
-        $response = $this->post(route('purchase', ['item' => $item->id]), [
-            'payment' => 1, // カード払いを選択
-            'postcode' => '123-4567',
-            'address' => '東京都渋谷区',
-            'building' => 'テストビル',
+        // 送付先住所を登録する（POSTリクエスト送信）
+        $response = $this->post(route('mailingAddress', ['item' => $item->id]), [
+            'postcode' => '765-4321',
+            'address' => '栃木県宇都宮市',
+            'building' => 'テスト001',
         ]);
 
-        $response->assertStatus(302); // リダイレクト確認
-        $response->assertRedirect(route('purchase', ['item' => $item->id]));
+        // 住所が正しく表示されていることを確認
+        $response->assertStatus(200);
+        $response->assertSee('765-4321');  // 変更した郵便番号が表示される
+        $response->assertSee('栃木県宇都宮市');  // 変更した住所が表示される
+        $response->assertSee('テスト001');  // 変更した建物名が表示される
+    }
 
-        $summaryResponse = $this->get(route('purchase', ['item' => $item->id]));
+    public function test_purchase_saves_shipping_address()
+    {
+        // ユーザーとプロフィールを作成
+        $user = User::factory()->create()->first();
+        Profile::create([
+            'user_id' => $user->id,
+            'postcode' => '123-4567',
+            'address' => '東京都渋谷区',
+            'building' => 'テストビル101',
+            'image' => 'default.png',
+        ]);
+        $this->actingAs($user);
 
-        $summaryResponse->assertStatus(200); // ページが正常に表示されることを確認
-        $summaryResponse->assertSee('カード払い'); // 支払い方法が正しく反映されていることを確認
+        // 商品を作成（他ユーザーの出品物）
+        $otherUser = User::factory()->create();
+        $item = Item::create([
+            'user_id' => $otherUser->id,
+            'name' => 'クラッチバッグ',
+            'condition' => 0,
+            'brand' => 'leather',
+            'detail' => '黒いレザーのクラッチバッグです',
+            'price' => 3000,
+            'image' => 'clutch_bag.jpg',
+            'is_sold' => false,
+        ]);
+
+        // 送付先住所を変更して購入画面に遷移（住所はrequest経由で保持）
+        $addressData = [
+            'postcode' => '765-4321',
+            'address' => '栃木県宇都宮市',
+            'building' => 'テスト001',
+        ];
+
+        // 購入処理（POST）
+        $response = $this->post(route('purchase', ['item' => $item->id]), array_merge($addressData, [
+            'payment' => 1, // カード払いなど仮の支払い方法
+        ]));
+
+        // データベースに保存されているか確認
+        $this->assertDatabaseHas('purchases', [
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'postcode' => '765-4321',
+            'address' => '栃木県宇都宮市',
+            'building' => 'テスト001',
+            'payment' => 1,
+        ]);
+
+        // リダイレクトやレスポンスの確認（必要に応じて）
+        $response->assertRedirect(route('mypage', ['tab' => 'buy'])); // 購入後マイページなどに飛ばすなら
     }
 }

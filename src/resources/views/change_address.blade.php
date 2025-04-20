@@ -12,7 +12,7 @@
         <h1 class="change-address--title">
             住所の変更
         </h1>
-        <form class="change-address-form" action="" method="post">
+        <form class="change-address-form" action="{{ route('mailingAddress', ['item' => $item->id]) }}" method="post">
             @csrf
             <div class="change-address">
                 <label class="form-title" for="postcode">郵便番号</label>

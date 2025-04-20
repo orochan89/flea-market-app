@@ -54,7 +54,7 @@ class PurchaseController extends Controller
     public function viewAddress(Request $request, Item $item)
     {
         $user = User::find(Auth::id());
-        return view('change_address');
+        return view('change_address', ['item' => $item]);
     }
 
     public function mailingAddress(AddressRequest $request, Item $item)
