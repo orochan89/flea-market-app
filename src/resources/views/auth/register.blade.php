@@ -12,7 +12,7 @@
         <h1 class="register__container-title">
             会員登録
         </h1>
-        <form class="register-form" action="" method="post">
+        <form class="register-form" action="" method="post" novalidate>
             @csrf
             <div class="register-form-input">
                 <label class="register-form-input-label" for="name">ユーザー名</label>

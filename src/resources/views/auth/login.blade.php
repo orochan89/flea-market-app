@@ -12,7 +12,7 @@
         <h1 class="login__container-title">
             ログイン
         </h1>
-        <form class="login-form" action="" method="post">
+        <form class="login-form" action="" method="post" novalidate>
             @csrf
             <div class="login-form-input">
                 <label class="login-form-input-label" for="email">メールアドレス</label>
