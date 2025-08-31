@@ -38,6 +38,7 @@ class ItemTableSeeder extends Seeder
                 'name' => '腕時計',
                 'condition' => 0,
                 'detail' => 'スタイリッシュなデザインのメンズ腕時計',
+                'brand' => 'Armani',
                 'price' => 15000,
                 'image' => 'items/Armani+Mens+Clock.jpg'
             ],
@@ -77,6 +78,7 @@ class ItemTableSeeder extends Seeder
                 'user_id' => $user->id,
                 'name' => 'マイク',
                 'condition' => 1,
+                'brand' => 'Maxim',
                 'detail' => '高音質のレコーディング用マイク',
                 'price' => 8000,
                 'image' => 'items/Music+Mic+4632231.jpg',
